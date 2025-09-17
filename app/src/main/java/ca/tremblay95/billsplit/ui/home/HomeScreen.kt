@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -51,6 +53,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel : HomeViewModel = viewModel()
 ) {
+    val homeUiState = viewModel.homeUiState
     val scrollBehaviour = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
@@ -78,9 +81,11 @@ fun HomeScreen(
         }
     ) { innerPadding ->
         HomeBody(
-            splitList = listOf(),
+            splitList = homeUiState.splitList,
             onSplitClick = navigateToSplitDetailsScreen,
-            modifier = modifier.fillMaxSize(),
+            modifier = modifier
+                .padding(innerPadding)
+                .fillMaxSize(),
             contentPadding = innerPadding
         )
     }
