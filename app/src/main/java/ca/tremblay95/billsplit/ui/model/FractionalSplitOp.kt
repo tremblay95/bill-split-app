@@ -1,7 +1,7 @@
 package ca.tremblay95.billsplit.ui.model
 
 class FractionalSplitOperation(val fractions : List<Fraction>) : SplitOperation() {
-    // TODO: validate fractions to ensure they total 1.0 
+    // TODO: validate fractions to ensure they total 1.0
     init {
         subSplits = Array(fractions.size) { null }
     }
