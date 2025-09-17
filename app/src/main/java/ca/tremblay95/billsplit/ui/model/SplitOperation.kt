@@ -18,7 +18,7 @@ abstract class SplitOperation {
     }
 }
 
-class SplitOperand (
+data class SplitOperand (
     val value : Double,
     val name : String = ""
 )
