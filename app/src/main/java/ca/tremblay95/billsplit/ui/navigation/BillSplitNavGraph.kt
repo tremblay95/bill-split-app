@@ -18,13 +18,13 @@ fun BillSplitNavHost(
         startDestination = HomeScreenDestination.route,
         modifier = modifier
     ) {
-        composable(route = HomeScreenDestination.route) {
+        composable(HomeScreenDestination.route) {
             HomeScreen(
                 navigateToCreateSplitScreen = {
-                    navController.navigate("") // TODO: CreateSplitScreen.route
+//                    navController.navigate("") // TODO: CreateSplitScreen.route
                 },
                 navigateToSplitDetailsScreen = {
-                    navController.navigate("") // TODO: SplitDetailsScreen.route
+//                    navController.navigate("") // TODO: SplitDetailsScreen.route
                 }
             )
         }

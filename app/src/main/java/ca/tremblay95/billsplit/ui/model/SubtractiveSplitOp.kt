@@ -1,6 +1,6 @@
 package ca.tremblay95.billsplit.ui.model
 
-class SubtractiveSplitOp(val subtrahends : List<Subtrahend>) : SplitOperation() {
+class SubtractiveSplitOp(val subtrahends : List<SplitOperand>) : SplitOperation() {
     init {
         subSplits = Array(subtrahends.size + 1) { null }
     }
@@ -9,13 +9,8 @@ class SubtractiveSplitOp(val subtrahends : List<Subtrahend>) : SplitOperation() 
     override fun applyTo(total: Double): List<Double> {
         // TODO: handle subtrahends totaling more than total
         val remainder = total - subtrahends.sumOf { it.value }
-        return subtrahends.mapIndexed { index, subtrahend ->
-            subSplits[index]?.applyTo(subtrahend.value) ?: listOf(subtrahend.value)
+        return subtrahends.mapIndexed { index, operand ->
+            subSplits[index]?.applyTo(operand.value) ?: listOf(operand.value)
         }.flatten() + (subSplits.last()?.applyTo(remainder) ?: listOf(remainder))
     }
-
-    class Subtrahend(
-        val value : Double,
-        val name : String = ""
-    )
 }

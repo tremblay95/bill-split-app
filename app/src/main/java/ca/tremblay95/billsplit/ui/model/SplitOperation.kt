@@ -17,3 +17,8 @@ abstract class SplitOperation {
         subSplits[index] = operation
     }
 }
+
+class SplitOperand (
+    val value : Double,
+    val name : String = ""
+)
