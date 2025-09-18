@@ -1,7 +1,18 @@
 package ca.tremblay95.billsplit.data.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity("split_method")
 data class SplitMethod(
-    val id : Int,
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo("method_id")
+    val methodId : Int = 0,
+
+    @ColumnInfo("name")
     val name : String,
+
+    @ColumnInfo("description")
     val description : String
 )
