@@ -9,15 +9,16 @@ import androidx.room.Transaction
 import androidx.room.Update
 import ca.tremblay95.billsplit.data.models.SplitMethod
 import ca.tremblay95.billsplit.data.relations.MethodWithOperationsAndOperands
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MethodDao {
     @Query("SELECT * FROM split_method ORDER BY method_id ASC")
-    fun getAllSplitMethods() : List<SplitMethod>
+    fun getAllSplitMethods() : Flow<List<SplitMethod>>
 
     @Transaction
     @Query("SELECT * FROM split_method WHERE method_id = :methodId")
-    fun getMethodWithOperationsAndOperands(methodId : Int) : MethodWithOperationsAndOperands
+    fun getMethodWithOperationsAndOperands(methodId : Int) : Flow<MethodWithOperationsAndOperands?>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insertSplitMethod(method : SplitMethod)
