@@ -1,9 +1,9 @@
-package ca.tremblay95.billsplit.data.model.relations
+package ca.tremblay95.billsplit.data.relations
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import ca.tremblay95.billsplit.data.model.SplitOperand
-import ca.tremblay95.billsplit.data.model.SplitOperation
+import ca.tremblay95.billsplit.data.models.SplitOperand
+import ca.tremblay95.billsplit.data.models.SplitOperation
 
 data class OperationWithOperands(
     @Embedded val operation : SplitOperation,

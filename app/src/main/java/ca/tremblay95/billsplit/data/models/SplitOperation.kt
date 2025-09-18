@@ -1,4 +1,4 @@
-package ca.tremblay95.billsplit.data.model
+package ca.tremblay95.billsplit.data.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
