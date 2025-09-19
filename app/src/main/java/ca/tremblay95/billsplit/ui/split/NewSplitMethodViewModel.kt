@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import ca.tremblay95.billsplit.data.SplitsRepository
-import ca.tremblay95.billsplit.ui.model.SplitMethod
 import ca.tremblay95.billsplit.ui.model.toSplitMethod
+import ca.tremblay95.billsplit.ui.model.SplitMethodDetails
 
 // TODO: pass in split repository
 class NewSplitMethodViewModel(
@@ -15,7 +15,7 @@ class NewSplitMethodViewModel(
     var methodUiState by mutableStateOf(MethodUiState())
         private set
 
-    fun updateUiState(methodDetails : SplitMethod) {
+    fun updateUiState(methodDetails : SplitMethodDetails) {
         methodUiState = MethodUiState(
             methodDetails = methodDetails,
             isEntryValid = validateInput(methodDetails)
@@ -28,7 +28,7 @@ class NewSplitMethodViewModel(
         }
     }
 
-    private fun validateInput(uiState : SplitMethod = methodUiState.methodDetails) : Boolean {
+    private fun validateInput(uiState : SplitMethodDetails = methodUiState.methodDetails) : Boolean {
         return with(uiState) {
             name.isNotBlank() // do we need to ensure there's always a description?
         }
@@ -36,6 +36,6 @@ class NewSplitMethodViewModel(
 }
 
 data class MethodUiState(
-    val methodDetails : SplitMethod = SplitMethod(),
+    val methodDetails : SplitMethodDetails = SplitMethodDetails(),
     val isEntryValid : Boolean = false
 )

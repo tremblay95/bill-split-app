@@ -26,7 +26,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import ca.tremblay95.billsplit.R
 import ca.tremblay95.billsplit.ui.AppViewModelProvider
 import ca.tremblay95.billsplit.ui.BillSplitTopBar
-import ca.tremblay95.billsplit.ui.model.SplitMethod
+import ca.tremblay95.billsplit.ui.model.SplitMethodDetails
 import ca.tremblay95.billsplit.ui.navigation.NavigationDestination
 import ca.tremblay95.billsplit.ui.theme.BillSplitAppTheme
 import kotlinx.coroutines.launch
@@ -79,7 +79,7 @@ fun NewSplitMethodScreen(
 @Composable
 fun NewSplitMethodBody(
     methodUiState : MethodUiState,
-    onMethodValueChange : (SplitMethod) -> Unit,
+    onMethodValueChange : (SplitMethodDetails) -> Unit,
     onSaveClick : () -> Unit,
     modifier : Modifier = Modifier
 ) {
@@ -105,8 +105,8 @@ fun NewSplitMethodBody(
 
 @Composable
 fun MethodInputForm(
-    methodDetails : SplitMethod,
-    onValueChange : (SplitMethod) -> Unit = {},
+    methodDetails : SplitMethodDetails,
+    onValueChange : (SplitMethodDetails) -> Unit = {},
     enabled : Boolean = true,
     modifier : Modifier
 ) {
@@ -163,7 +163,7 @@ fun NewSplitMethodPreview() {
     BillSplitAppTheme {
         NewSplitMethodBody(
             methodUiState = MethodUiState(
-                SplitMethod(
+                SplitMethodDetails(
                     name = "Split Preview",
                     description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi porta dignissim quam vitae imperdiet. Mauris vestibulum quam ut neque venenatis, sed mattis odio gravida. Vivamus iaculis dictum tortor, accumsan mattis mauris fermentum sodales. Curabitur feugiat est id venenatis posuere. Cras eget hendrerit mauris, tempus semper quam. Fusce iaculis vehicula ex sit amet placerat."
                 )
