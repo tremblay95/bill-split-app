@@ -8,4 +8,5 @@
     <string name="name_required">Name*</string>
     <string name="description">Description</string>
     <string name="required_fields">*required fields</string>
+    <string name="split_method_empty">This split doesn\'t do anything yet. Edit to add some functionality. </string>
 </resources>
