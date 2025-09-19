@@ -7,9 +7,9 @@ import androidx.room.RoomDatabase
 import ca.tremblay95.billsplit.data.daos.MethodDao
 import ca.tremblay95.billsplit.data.daos.OperandDao
 import ca.tremblay95.billsplit.data.daos.OperationDao
-import ca.tremblay95.billsplit.ui.model.SplitMethod
-import ca.tremblay95.billsplit.ui.model.SplitOperand
-import ca.tremblay95.billsplit.ui.model.SplitOperation
+import ca.tremblay95.billsplit.data.models.SplitMethod
+import ca.tremblay95.billsplit.data.models.SplitOperand
+import ca.tremblay95.billsplit.data.models.SplitOperation
 
 @Database(entities = [SplitMethod::class, SplitOperation::class, SplitOperand::class], version = 1, exportSchema = false)
 abstract class SplitDatabase : RoomDatabase() {

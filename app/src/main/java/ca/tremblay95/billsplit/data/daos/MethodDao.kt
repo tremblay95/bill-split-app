@@ -21,11 +21,11 @@ interface MethodDao {
     fun getMethodWithOperationsAndOperands(methodId : Int) : Flow<MethodWithOperationsAndOperands?>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    fun insertSplitMethod(method : SplitMethod)
+    suspend fun insertSplitMethod(method : SplitMethod)
 
     @Delete
-    fun deleteSplitMethod(method : SplitMethod)
+    suspend fun deleteSplitMethod(method : SplitMethod)
 
     @Update
-    fun updateSplitMethod(method : SplitMethod)
+    suspend fun updateSplitMethod(method : SplitMethod)
 }
