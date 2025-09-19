@@ -24,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ca.tremblay95.billsplit.R
+import ca.tremblay95.billsplit.ui.AppViewModelProvider
 import ca.tremblay95.billsplit.ui.BillSplitTopBar
 import ca.tremblay95.billsplit.ui.model.SplitMethod
 import ca.tremblay95.billsplit.ui.navigation.NavigationDestination
@@ -41,7 +42,7 @@ fun NewSplitMethodScreen(
     navigateToEditSplitMethod : () -> Unit,
     onNavigateUp : () -> Unit,
     canNavigateBack : Boolean = true,
-    viewModel : NewSplitMethodViewModel = viewModel() // TODO: use viewmodel factory
+    viewModel : NewSplitMethodViewModel = viewModel(factory = AppViewModelProvider.Factory) // TODO: use viewmodel factory
 ) {
     val coroutineScope = rememberCoroutineScope()
 

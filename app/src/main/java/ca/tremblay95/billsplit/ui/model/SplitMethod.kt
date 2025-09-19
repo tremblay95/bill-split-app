@@ -10,3 +10,9 @@ data class SplitMethod(
 )
 
 // TODO: extension functions for going between the ui model and the data model
+fun SplitMethod.toSplitMethod() : ca.tremblay95.billsplit.data.models.SplitMethod =
+    ca.tremblay95.billsplit.data.models.SplitMethod(
+        methodId = id,
+        name = name,
+        description = description
+    )

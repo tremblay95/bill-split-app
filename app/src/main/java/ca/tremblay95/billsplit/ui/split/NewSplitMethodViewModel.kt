@@ -4,10 +4,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import ca.tremblay95.billsplit.data.SplitsRepository
 import ca.tremblay95.billsplit.ui.model.SplitMethod
+import ca.tremblay95.billsplit.ui.model.toSplitMethod
 
 // TODO: pass in split repository
-class NewSplitMethodViewModel : ViewModel() {
+class NewSplitMethodViewModel(
+    private val splitsRepository : SplitsRepository
+) : ViewModel() {
     var methodUiState by mutableStateOf(MethodUiState())
         private set
 
@@ -20,7 +24,7 @@ class NewSplitMethodViewModel : ViewModel() {
 
     suspend fun saveSplitMethod() {
         if (validateInput()) {
-            // TODO: make call to split repository
+            splitsRepository.insertSplitMethod(methodUiState.methodDetails.toSplitMethod())
         }
     }
 

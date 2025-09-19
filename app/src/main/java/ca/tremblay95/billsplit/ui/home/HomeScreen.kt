@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -23,6 +21,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -35,7 +35,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ca.tremblay95.billsplit.R
-import ca.tremblay95.billsplit.ui.model.SplitMethod
+import ca.tremblay95.billsplit.data.models.SplitMethod
+import ca.tremblay95.billsplit.ui.AppViewModelProvider
 import ca.tremblay95.billsplit.ui.BillSplitTopBar
 import ca.tremblay95.billsplit.ui.navigation.NavigationDestination
 import ca.tremblay95.billsplit.ui.theme.BillSplitAppTheme
@@ -51,9 +52,9 @@ fun HomeScreen(
     navigateToCreateSplitScreen: () -> Unit,
     navigateToSplitDetailsScreen: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel : HomeViewModel = viewModel() // TODO: use viewmodel factory
+    viewModel : HomeViewModel = viewModel(factory = AppViewModelProvider.Factory) // TODO: use viewmodel factory
 ) {
-    val homeUiState = viewModel.homeUiState
+    val homeUiState by viewModel.homeUiState.collectAsState()
     val scrollBehaviour = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
@@ -111,7 +112,7 @@ fun HomeBody(
         } else {
             SplitList(
                 splitList = splitList,
-                onSplitClick = { onSplitClick(it.id) },
+                onSplitClick = { onSplitClick(it.methodId) },
                 contentPadding = contentPadding,
                 modifier = Modifier
                     .padding(horizontal = dimensionResource(R.dimen.padding_small))
