@@ -15,9 +15,13 @@ class HomeViewModel(splitsRepository : SplitsRepository) : ViewModel() {
         HomeUiState(it)
     }.stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(),
+        started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
         initialValue = HomeUiState()
     )
+
+    companion object {
+        private const val TIMEOUT_MILLIS = 5_000L
+    }
 }
 
 data class HomeUiState(val splitList : List<SplitMethod> = listOf())
