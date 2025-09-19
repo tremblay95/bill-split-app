@@ -51,7 +51,7 @@ fun HomeScreen(
     navigateToCreateSplitScreen: () -> Unit,
     navigateToSplitDetailsScreen: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel : HomeViewModel = viewModel()
+    viewModel : HomeViewModel = viewModel() // TODO: use viewmodel factory
 ) {
     val homeUiState = viewModel.homeUiState
     val scrollBehaviour = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -67,9 +67,7 @@ fun HomeScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {
-                    TODO("Not yet implemented")
-                },
+                onClick = navigateToCreateSplitScreen,
                 shape = MaterialTheme.shapes.medium,
                 modifier = modifier.padding(dimensionResource(R.dimen.padding_large))
             ) {

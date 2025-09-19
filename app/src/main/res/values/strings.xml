@@ -3,4 +3,9 @@
     <string name="back_button">Back</string>
     <string name="create_split_title">New Split</string>
     <string name="no_splits_description">You have no splits.\nTap + to create one.</string>
+    <string name="new_method_title">New Split Method</string>
+    <string name="save_action">Save</string>
+    <string name="name_required">Name*</string>
+    <string name="description">Description</string>
+    <string name="required_fields">*required fields</string>
 </resources>
