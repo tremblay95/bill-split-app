@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -35,7 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ca.tremblay95.billsplit.R
-import ca.tremblay95.billsplit.ui.model.SplitMethod
+import ca.tremblay95.billsplit.ui.model.SplitMethodDetails
 import ca.tremblay95.billsplit.ui.BillSplitTopBar
 import ca.tremblay95.billsplit.ui.navigation.NavigationDestination
 import ca.tremblay95.billsplit.ui.theme.BillSplitAppTheme
@@ -91,7 +89,7 @@ fun HomeScreen(
 
 @Composable
 fun HomeBody(
-    splitList: List<SplitMethod>,
+    splitList: List<SplitMethodDetails>,
     onSplitClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -122,8 +120,8 @@ fun HomeBody(
 
 @Composable
 fun SplitList(
-    splitList: List<SplitMethod>,
-    onSplitClick: (SplitMethod) -> Unit,
+    splitList: List<SplitMethodDetails>,
+    onSplitClick: (SplitMethodDetails) -> Unit,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
 ) {
@@ -143,7 +141,7 @@ fun SplitList(
 
 @Composable
 fun SplitEntry(
-    split: SplitMethod,
+    split: SplitMethodDetails,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -176,9 +174,9 @@ fun SplitEntry(
 fun HomeBodyPreview() {
     BillSplitAppTheme {
         HomeBody(listOf(
-            SplitMethod(0, "Test Split 1", "description 1"),
-            SplitMethod(1, "Test Split 2", "description 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi porta dignissim quam vitae imperdiet. Mauris vestibulum quam ut neque venenatis, sed mattis odio gravida. Vivamus iaculis dictum tortor, accumsan mattis mauris fermentum sodales. Curabitur feugiat est id venenatis posuere. Cras eget hendrerit mauris, tempus semper quam. Fusce iaculis vehicula ex sit amet placerat."),
-            SplitMethod(2, "Test Split 3", "description 3")
+            SplitMethodDetails(0, "Test Split 1", "description 1"),
+            SplitMethodDetails(1, "Test Split 2", "description 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi porta dignissim quam vitae imperdiet. Mauris vestibulum quam ut neque venenatis, sed mattis odio gravida. Vivamus iaculis dictum tortor, accumsan mattis mauris fermentum sodales. Curabitur feugiat est id venenatis posuere. Cras eget hendrerit mauris, tempus semper quam. Fusce iaculis vehicula ex sit amet placerat."),
+            SplitMethodDetails(2, "Test Split 3", "description 3")
         ), {}, Modifier.fillMaxSize())
     }
 }
