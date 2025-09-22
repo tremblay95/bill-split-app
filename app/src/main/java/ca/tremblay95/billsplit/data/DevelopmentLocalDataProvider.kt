@@ -2,7 +2,7 @@ package ca.tremblay95.billsplit.data
 
 import ca.tremblay95.billsplit.ui.model.FractionalSplitOperation
 import ca.tremblay95.billsplit.ui.model.SplitMethodDetails
-import ca.tremblay95.billsplit.ui.model.SplitOperand
+import ca.tremblay95.billsplit.ui.model.SplitOperandDetails
 
 // TODO: Remove this. Temporary, for development purposes only
 object DevelopmentLocalDataProvider {
@@ -10,13 +10,13 @@ object DevelopmentLocalDataProvider {
 
     init {
         val utilitySplit = FractionalSplitOperation(listOf(
-            SplitOperand(0.7, "Main Floor"),
-            SplitOperand(0.3, "Basement")
+            SplitOperandDetails(0.7, "Main Floor"),
+            SplitOperandDetails(0.3, "Basement")
         ))
         val mainFloorSplit = FractionalSplitOperation(listOf(
-            SplitOperand(1.0/3.0, "Roommate A"),
-            SplitOperand(1.0/3.0, "Roommate B"),
-            SplitOperand(1.0/3.0, "Roommate C")
+            SplitOperandDetails(1.0/3.0, "Roommate A"),
+            SplitOperandDetails(1.0/3.0, "Roommate B"),
+            SplitOperandDetails(1.0/3.0, "Roommate C")
         ))
 
         utilitySplit.splitFurther(0, mainFloorSplit)
