@@ -24,6 +24,7 @@ abstract class SplitDatabase : RoomDatabase() {
         fun getDatabase(context : Context) : SplitDatabase {
             return Instance ?: synchronized(this) {
                 Room.databaseBuilder(context, SplitDatabase::class.java, "split_database")
+                    .fallbackToDestructiveMigration(true)
                     .build()
                     .also { Instance = it }
             }

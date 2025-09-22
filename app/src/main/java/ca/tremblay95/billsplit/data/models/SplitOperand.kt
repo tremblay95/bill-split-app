@@ -3,10 +3,12 @@ package ca.tremblay95.billsplit.data.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "split_operand",
+    indices = [Index(value = ["operation_id"])],
     foreignKeys = [
         ForeignKey(
             entity = SplitOperation::class,
