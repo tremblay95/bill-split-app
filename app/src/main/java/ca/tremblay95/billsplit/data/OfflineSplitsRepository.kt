@@ -42,6 +42,7 @@ class OfflineSplitsRepository(
         return getOperationWithOperands(id).map { operationWithOperands ->
             var operationDetails = operationWithOperands!!.toSplitOperationDetails()
 
+            // I don't think this works with null child operations
             getChildOperations(id).collect { childOps ->
                 combine(
                 childOps
