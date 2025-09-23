@@ -39,7 +39,7 @@ object NewSplitMethodDestination : NavigationDestination {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewSplitMethodScreen(
-    navigateToEditSplitMethod : () -> Unit,
+    navigateBack : () -> Unit,
     onNavigateUp : () -> Unit,
     canNavigateBack : Boolean = true,
     viewModel : NewSplitMethodViewModel = viewModel(factory = AppViewModelProvider.Factory) // TODO: use viewmodel factory
@@ -61,7 +61,7 @@ fun NewSplitMethodScreen(
             onSaveClick = {
                 coroutineScope.launch {
                     viewModel.saveSplitMethod()
-                    navigateToEditSplitMethod()
+                    navigateBack()
                 }
             },
             modifier = Modifier
