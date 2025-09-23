@@ -9,10 +9,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import ca.tremblay95.billsplit.ui.home.HomeScreen
 import ca.tremblay95.billsplit.ui.home.HomeScreenDestination
-import ca.tremblay95.billsplit.ui.split.NewSplitMethodDestination
-import ca.tremblay95.billsplit.ui.split.NewSplitMethodScreen
-import ca.tremblay95.billsplit.ui.split.SplitMethodDetailsDestination
-import ca.tremblay95.billsplit.ui.split.SplitMethodDetailsScreen
+import ca.tremblay95.billsplit.ui.splitmethod.create.SplitMethodCreateDestination
+import ca.tremblay95.billsplit.ui.splitmethod.create.SplitMethodCreateScreen
+import ca.tremblay95.billsplit.ui.splitmethod.details.SplitMethodDetailsDestination
+import ca.tremblay95.billsplit.ui.splitmethod.details.SplitMethodDetailsScreen
 
 @Composable
 fun BillSplitNavHost(
@@ -27,15 +27,15 @@ fun BillSplitNavHost(
         composable(HomeScreenDestination.route) {
             HomeScreen(
                 navigateToCreateSplitScreen = {
-                    navController.navigate(NewSplitMethodDestination.route)
+                    navController.navigate(SplitMethodCreateDestination.route)
                 },
                 navigateToSplitDetailsScreen = {
                     navController.navigate("${SplitMethodDetailsDestination.route}/${it}")
                 }
             )
         }
-        composable(NewSplitMethodDestination.route) {
-            NewSplitMethodScreen(
+        composable(SplitMethodCreateDestination.route) {
+            SplitMethodCreateScreen(
                 navigateBack = { navController.popBackStack() },
                 onNavigateUp = { navController.navigateUp() }
             )

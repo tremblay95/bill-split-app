@@ -7,8 +7,8 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import ca.tremblay95.billsplit.BillSplitApplication
 import ca.tremblay95.billsplit.ui.home.HomeViewModel
-import ca.tremblay95.billsplit.ui.split.NewSplitMethodViewModel
-import ca.tremblay95.billsplit.ui.split.SplitMethodDetailsViewModel
+import ca.tremblay95.billsplit.ui.splitmethod.create.SplitMethodCreateViewModel
+import ca.tremblay95.billsplit.ui.splitmethod.details.SplitMethodDetailsViewModel
 
 object AppViewModelProvider {
     val Factory = viewModelFactory {
@@ -19,7 +19,7 @@ object AppViewModelProvider {
 
         // Initializer for NewSplitMethodViewModel
         initializer {
-            NewSplitMethodViewModel(billSplitApplication().container.splitsRepository)
+            SplitMethodCreateViewModel(billSplitApplication().container.splitsRepository)
         }
 
         // Initializer for SplitMethodDetailsViewModel

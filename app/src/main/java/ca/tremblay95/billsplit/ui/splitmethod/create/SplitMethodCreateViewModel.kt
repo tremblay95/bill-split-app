@@ -1,4 +1,4 @@
-package ca.tremblay95.billsplit.ui.split
+package ca.tremblay95.billsplit.ui.splitmethod.create
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -9,7 +9,7 @@ import ca.tremblay95.billsplit.ui.model.toSplitMethod
 import ca.tremblay95.billsplit.ui.model.SplitMethodDetails
 
 // TODO: pass in split repository
-class NewSplitMethodViewModel(
+class SplitMethodCreateViewModel(
     private val splitsRepository : SplitsRepository
 ) : ViewModel() {
     var methodUiState by mutableStateOf(MethodUiState())

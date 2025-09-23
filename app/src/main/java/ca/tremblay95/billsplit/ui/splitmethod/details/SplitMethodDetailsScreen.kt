@@ -1,4 +1,4 @@
-package ca.tremblay95.billsplit.ui.split
+package ca.tremblay95.billsplit.ui.splitmethod.details
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text

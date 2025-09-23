@@ -1,4 +1,4 @@
-package ca.tremblay95.billsplit.ui.split
+package ca.tremblay95.billsplit.ui.splitmethod.create
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,25 +31,25 @@ import ca.tremblay95.billsplit.ui.navigation.NavigationDestination
 import ca.tremblay95.billsplit.ui.theme.BillSplitAppTheme
 import kotlinx.coroutines.launch
 
-object NewSplitMethodDestination : NavigationDestination {
-    override val route : String = "new_method"
-    override val titleResource : Int = R.string.new_method_title
+object SplitMethodCreateDestination : NavigationDestination {
+    override val route : String = "method_create"
+    override val titleResource : Int = R.string.create_method_title
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NewSplitMethodScreen(
+fun SplitMethodCreateScreen(
     navigateBack : () -> Unit,
     onNavigateUp : () -> Unit,
     canNavigateBack : Boolean = true,
-    viewModel : NewSplitMethodViewModel = viewModel(factory = AppViewModelProvider.Factory) // TODO: use viewmodel factory
+    viewModel : SplitMethodCreateViewModel = viewModel(factory = AppViewModelProvider.Factory) // TODO: use viewmodel factory
 ) {
     val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         topBar = {
             BillSplitTopBar(
-                title = stringResource(NewSplitMethodDestination.titleResource),
+                title = stringResource(SplitMethodCreateDestination.titleResource),
                 canNavigateBack = canNavigateBack,
                 navigateUp = onNavigateUp
             )
