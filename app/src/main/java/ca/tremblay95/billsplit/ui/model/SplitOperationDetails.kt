@@ -8,9 +8,10 @@ enum class SplitType {
 }
 
 abstract class SplitOperationDetails {
+    val id : Int = 0
     abstract val splitType : SplitType
 
-    var subSplits : Array<SplitOperationDetails?> = arrayOf()
+    protected var subSplits : Array<SplitOperationDetails?> = arrayOf()
 
     abstract fun applyTo(total : Double) : List<Double>
 
@@ -27,6 +28,6 @@ data class SplitOperandDetails (
 
 fun OperationWithOperands.toSplitOperationDetails() : SplitOperationDetails =
     when (operation.splitType) {
-        SplitType.Fractional -> FractionalSplitOperation(operands.map { SplitOperandDetails(it.value, it.name)})
-        SplitType.Subtractive -> SubtractiveSplitOp(operands.map { SplitOperandDetails(it.value, it.name)})
+        SplitType.Fractional -> FractionalSplitOperation(operation.operationId,operands.map { SplitOperandDetails(it.value, it.name)})
+        SplitType.Subtractive -> SubtractiveSplitOp(operation.operationId, operands.map { SplitOperandDetails(it.value, it.name)})
     }

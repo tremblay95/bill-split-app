@@ -19,7 +19,7 @@ class SplitOperationTests {
         val total = 100.0
         val expected = listOf(30.0, 50.0, 20.0)
 
-        val splitOp = FractionalSplitOperation(split.map { SplitOperandDetails(it) })
+        val splitOp = FractionalSplitOperation(fractions =  split.map { SplitOperandDetails(it) })
         val actual = splitOp.applyTo(total)
 
         assertEquals(expected, actual)
@@ -33,8 +33,8 @@ class SplitOperationTests {
 
         val total = 100.0
 
-        val baseSplitOp = FractionalSplitOperation(baseSplit.map { SplitOperandDetails(it) })
-        val subSplitOp = FractionalSplitOperation(subSplit.map { SplitOperandDetails(it) })
+        val baseSplitOp = FractionalSplitOperation(fractions =  baseSplit.map { SplitOperandDetails(it) })
+        val subSplitOp = FractionalSplitOperation(fractions = subSplit.map { SplitOperandDetails(it) })
 
         baseSplitOp.splitFurther(1, subSplitOp)
         val actual = baseSplitOp.applyTo(total)
@@ -48,7 +48,7 @@ class SplitOperationTests {
         val split = listOf(42.0, 32.0)
         val expected = listOf(42.0, 32.0, 26.0)
 
-        val splitOp = SubtractiveSplitOp(split.map{ SplitOperandDetails(it) })
+        val splitOp = SubtractiveSplitOp(subtrahends = split.map{ SplitOperandDetails(it) })
         val actual = splitOp.applyTo(total)
 
         assertEquals(expected, actual)
@@ -61,8 +61,8 @@ class SplitOperationTests {
         val subSplit = listOf(10.0, 13.0)
         val expected = listOf(42.0, 10.0, 13.0, 9.0, 26.0)
 
-        val baseSplitOp = SubtractiveSplitOp(baseSplit.map { SplitOperandDetails(it) })
-        val subSplitOp = SubtractiveSplitOp(subSplit.map { SplitOperandDetails(it)})
+        val baseSplitOp = SubtractiveSplitOp(subtrahends = baseSplit.map { SplitOperandDetails(it) })
+        val subSplitOp = SubtractiveSplitOp(subtrahends = subSplit.map { SplitOperandDetails(it)})
 
         baseSplitOp.splitFurther(1, subSplitOp)
 
@@ -75,8 +75,8 @@ class SplitOperationTests {
         val total = 120.0
         val expected = listOf(20.0, 30.0, 50.0, 20.0)
 
-        val baseSplitOp = SubtractiveSplitOp(listOf(SplitOperandDetails(20.0)))
-        val subSplitOp = FractionalSplitOperation(listOf(0.3, 0.5, 0.2).map { SplitOperandDetails(it) })
+        val baseSplitOp = SubtractiveSplitOp(subtrahends = listOf(SplitOperandDetails(20.0)))
+        val subSplitOp = FractionalSplitOperation(fractions = listOf(0.3, 0.5, 0.2).map { SplitOperandDetails(it) })
 
         baseSplitOp.splitFurther(1, subSplitOp)
         val actual = baseSplitOp.applyTo(total)
@@ -89,8 +89,8 @@ class SplitOperationTests {
         val total = 100.0
         val expected = listOf(30.0, 20.0, 30.0, 20.0)
 
-        val baseSplitOp = FractionalSplitOperation(listOf(0.3, 0.5, 0.2).map { SplitOperandDetails(it) })
-        val subSplitOp = SubtractiveSplitOp(listOf(SplitOperandDetails(20.0)))
+        val baseSplitOp = FractionalSplitOperation(fractions = listOf(0.3, 0.5, 0.2).map { SplitOperandDetails(it) })
+        val subSplitOp = SubtractiveSplitOp(subtrahends = listOf(SplitOperandDetails(20.0)))
 
         baseSplitOp.splitFurther(1, subSplitOp)
         val actual = baseSplitOp.applyTo(total)

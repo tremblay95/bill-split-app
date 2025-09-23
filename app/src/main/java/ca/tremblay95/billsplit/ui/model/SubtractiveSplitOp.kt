@@ -1,6 +1,6 @@
 package ca.tremblay95.billsplit.ui.model
 
-class SubtractiveSplitOp(val subtrahends : List<SplitOperandDetails>) : SplitOperationDetails() {
+class SubtractiveSplitOp(id : Int = 0, val subtrahends : List<SplitOperandDetails>) : SplitOperationDetails() {
     init {
         subSplits = Array(subtrahends.size + 1) { null }
     }

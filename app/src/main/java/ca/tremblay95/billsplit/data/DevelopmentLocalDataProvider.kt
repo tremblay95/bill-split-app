@@ -9,11 +9,11 @@ object DevelopmentLocalDataProvider {
     val methodDetails : List<SplitMethodDetails>
 
     init {
-        val utilitySplit = FractionalSplitOperation(listOf(
+        val utilitySplit = FractionalSplitOperation(fractions = listOf(
             SplitOperandDetails(0.7, "Main Floor"),
             SplitOperandDetails(0.3, "Basement")
         ))
-        val mainFloorSplit = FractionalSplitOperation(listOf(
+        val mainFloorSplit = FractionalSplitOperation(fractions = listOf(
             SplitOperandDetails(1.0/3.0, "Roommate A"),
             SplitOperandDetails(1.0/3.0, "Roommate B"),
             SplitOperandDetails(1.0/3.0, "Roommate C")
