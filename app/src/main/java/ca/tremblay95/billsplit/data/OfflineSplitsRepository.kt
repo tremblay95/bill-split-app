@@ -12,8 +12,8 @@ import ca.tremblay95.billsplit.ui.model.SplitOperationDetails
 import ca.tremblay95.billsplit.ui.model.toSplitMethodDetails
 import ca.tremblay95.billsplit.ui.model.toSplitOperationDetails
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.zip
 
 class OfflineSplitsRepository(
     private val methodDao : MethodDao,
@@ -25,11 +25,11 @@ class OfflineSplitsRepository(
             .map { method ->
                 if (method == null) null else {
 
-                    var methodDetails = method?.toSplitMethodDetails()
+                    var methodDetails = method.toSplitMethodDetails()
 
-                    if (methodDetails != null && method.operationId != null) {
+                    if (method.operationId != null) {
                         getSplitOperationDetails(method.operationId).collect {
-                            methodDetails = methodDetails!!.copy(splitOperation = it)
+                            methodDetails = methodDetails.copy(splitOperation = it)
                         }
                     }
 
@@ -39,21 +39,19 @@ class OfflineSplitsRepository(
     }
 
     override fun getSplitOperationDetails(id : Int) : Flow<SplitOperationDetails?> {
-        return getOperationWithOperands(id).map { operationWithOperands ->
-            var operationDetails = operationWithOperands!!.toSplitOperationDetails()
+        return getOperationWithOperands(id).zip(getChildOperations(id)) { operation, childOperations ->
+            if (operation != null) {
+                var operationDetails = operation.toSplitOperationDetails()
 
-            // I don't think this works with null child operations
-            getChildOperations(id).collect { childOps ->
-                combine(
-                childOps
-                    .sortedBy { childOp -> childOp.parentOperationIndex }
-                    .map { childOp -> getSplitOperationDetails(childOp.operationId) }
-                ) { it }.collect {
-                    operationDetails.subSplits = it
+                childOperations.forEach { child ->
+                    getSplitOperationDetails(child.operationId).collect { childDetails ->
+                        if (child.parentOperationIndex != null && childDetails != null) {
+                            operationDetails.splitFurther(child.parentOperationIndex, childDetails)
+                        }
+                    }
                 }
-            }
-
-            operationDetails
+                operationDetails
+            } else null
         }
     }
 
