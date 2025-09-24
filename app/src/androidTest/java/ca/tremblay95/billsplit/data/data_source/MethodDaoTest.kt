@@ -1,11 +1,11 @@
-package ca.tremblay95.billsplit.data.dao
+package ca.tremblay95.billsplit.data.data_source
 
 import android.content.Context
 import android.database.sqlite.SQLiteConstraintException
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import ca.tremblay95.billsplit.data.SplitDatabase
+import ca.tremblay95.billsplit.data.data_source.SplitDatabase
 import ca.tremblay95.billsplit.data.model.SplitEntity
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first

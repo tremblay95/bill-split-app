@@ -1,10 +1,10 @@
-package ca.tremblay95.billsplit.data.dao
+package ca.tremblay95.billsplit.data.data_source
 
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import ca.tremblay95.billsplit.data.SplitDatabase
+import ca.tremblay95.billsplit.data.data_source.SplitDatabase
 import ca.tremblay95.billsplit.data.model.OperandEntity
 import ca.tremblay95.billsplit.data.model.OperationEntity
 import ca.tremblay95.billsplit.data.relation.OperationWithOperands

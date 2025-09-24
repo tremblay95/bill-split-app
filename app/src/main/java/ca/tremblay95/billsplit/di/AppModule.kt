@@ -1,17 +1,17 @@
 package ca.tremblay95.billsplit.di
 
 import android.content.Context
-import ca.tremblay95.billsplit.data.OfflineSplitsRepository
-import ca.tremblay95.billsplit.data.SplitDatabase
-import ca.tremblay95.billsplit.data.SplitsRepository
+import ca.tremblay95.billsplit.data.repository.OfflineSplitRepository
+import ca.tremblay95.billsplit.data.data_source.SplitDatabase
+import ca.tremblay95.billsplit.domain.repository.SplitRepository
 
 interface AppModule {
-    val splitsRepository : SplitsRepository
+    val splitsRepository : SplitRepository
 }
 
 class AppModuleImpl(context : Context) : AppModule {
-    override val splitsRepository : SplitsRepository by lazy {
+    override val splitsRepository : SplitRepository by lazy {
         val db = SplitDatabase.Companion.getDatabase(context)
-        OfflineSplitsRepository(db.methodDao(), db.operationDao(), db.operandDao())
+        OfflineSplitRepository(db.methodDao(), db.operationDao(), db.operandDao())
     }
 }

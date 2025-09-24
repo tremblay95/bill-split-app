@@ -1,18 +1,19 @@
-package ca.tremblay95.billsplit.data
+package ca.tremblay95.billsplit.data.repository
 
-import ca.tremblay95.billsplit.data.dao.SplitDao
-import ca.tremblay95.billsplit.data.dao.OperandDao
-import ca.tremblay95.billsplit.data.dao.OperationDao
-import ca.tremblay95.billsplit.data.model.SplitEntity
+import ca.tremblay95.billsplit.data.data_source.OperandDao
+import ca.tremblay95.billsplit.data.data_source.OperationDao
+import ca.tremblay95.billsplit.data.data_source.SplitDao
 import ca.tremblay95.billsplit.data.model.OperandEntity
 import ca.tremblay95.billsplit.data.model.OperationEntity
+import ca.tremblay95.billsplit.data.model.SplitEntity
+import ca.tremblay95.billsplit.domain.repository.SplitRepository
 import kotlinx.coroutines.flow.Flow
 
-class OfflineSplitsRepository(
+class OfflineSplitRepository(
     private val splitDao : SplitDao,
     private val operationDao : OperationDao,
     private val operandDao : OperandDao
-) : SplitsRepository {
+) : SplitRepository {
 
     /**
      *  Split Method

@@ -1,4 +1,4 @@
-package ca.tremblay95.billsplit.data.dao
+package ca.tremblay95.billsplit.data.data_source
 
 import androidx.room.Dao
 import androidx.room.Delete

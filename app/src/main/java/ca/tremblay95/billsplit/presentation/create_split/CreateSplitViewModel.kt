@@ -4,13 +4,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import ca.tremblay95.billsplit.data.SplitsRepository
+import ca.tremblay95.billsplit.domain.repository.SplitRepository
 import ca.tremblay95.billsplit.data.mappers.toSplitEntity
 import ca.tremblay95.billsplit.domain.model.Split
 
 // TODO: Pass in GetMethodsListUseCase
 class CreateSplitViewModel(
-    private val splitsRepository : SplitsRepository
+    private val splitsRepository : SplitRepository
 ) : ViewModel() {
     var uiState by mutableStateOf(CreateSplitState())
         private set

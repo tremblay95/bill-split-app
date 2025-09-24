@@ -1,12 +1,12 @@
-package ca.tremblay95.billsplit.data
+package ca.tremblay95.billsplit.domain.repository
 
-import ca.tremblay95.billsplit.data.model.SplitEntity
 import ca.tremblay95.billsplit.data.model.OperandEntity
 import ca.tremblay95.billsplit.data.model.OperationEntity
+import ca.tremblay95.billsplit.data.model.SplitEntity
 import kotlinx.coroutines.flow.Flow
 
 // TODO: Consider inserting, updating, and deleting lists of each entity.
-interface SplitsRepository {
+interface SplitRepository {
 
     /**
      *  Split
