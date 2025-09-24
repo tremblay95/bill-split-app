@@ -34,9 +34,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import ca.tremblay95.billsplit.BillSplitTopBar
 import ca.tremblay95.billsplit.R
 import ca.tremblay95.billsplit.domain.model.Split
+import ca.tremblay95.billsplit.presentation.common.BillSplitTopBar
 import ca.tremblay95.billsplit.presentation.ui.AppViewModelProvider
 import ca.tremblay95.billsplit.ui.navigation.NavigationDestination
 import ca.tremblay95.billsplit.ui.theme.BillSplitAppTheme
