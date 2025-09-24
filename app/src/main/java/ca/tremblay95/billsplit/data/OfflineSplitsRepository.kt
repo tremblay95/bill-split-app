@@ -71,7 +71,7 @@ class OfflineSplitsRepository(
      */
     override fun getOperationWithOperands(id : Int) : Flow<OperationWithOperands?> = operationDao.getOperationWithOperands(id)
     override fun getChildOperations(parentId : Int) : Flow<List<SplitOperation>> = operationDao.getChildOperations(parentId)
-    override fun getOperationsWithOperands(ids : List<Int?>) : Flow<Array<OperationWithOperands?>> = operationDao.getOperationsWithOperands(ids)
+    override fun getOperationsWithOperands(ids : List<Int?>) : Flow<Array<OperationWithOperands>> = operationDao.getOperationsWithOperands(ids)
     override suspend fun insertSplitOperation(operation : SplitOperation) = operationDao.insertSplitOperation(operation)
     override suspend fun deleteSplitOperation(operation : SplitOperation) = operationDao.deleteSplitOperation(operation)
     override suspend fun updateSplitOperation(operation : SplitOperation) = operationDao.updateSplitOperation(operation)

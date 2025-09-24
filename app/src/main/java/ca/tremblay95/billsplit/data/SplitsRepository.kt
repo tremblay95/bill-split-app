@@ -28,7 +28,7 @@ interface SplitsRepository {
      */
     fun getOperationWithOperands(id : Int) : Flow<OperationWithOperands?>
     fun getChildOperations(parentId : Int) : Flow<List<SplitOperation>>
-    fun getOperationsWithOperands(ids : List<Int?>) : Flow<Array<OperationWithOperands?>>
+    fun getOperationsWithOperands(ids : List<Int?>) : Flow<Array<OperationWithOperands>>
     suspend fun insertSplitOperation(operation : SplitOperation)
     suspend fun deleteSplitOperation(operation : SplitOperation)
     suspend fun updateSplitOperation(operation : SplitOperation)
