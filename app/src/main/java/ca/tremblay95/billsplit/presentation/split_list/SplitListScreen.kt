@@ -52,7 +52,7 @@ fun SplitListScreen(
     navigateToCreateSplitScreen: () -> Unit,
     navigateToSplitDetailsScreen: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel : SplitListViewModel = viewModel(factory = AppViewModelProvider.Factory) // TODO: use viewmodel factory
+    viewModel : SplitListViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val scrollBehaviour = TopAppBarDefaults.enterAlwaysScrollBehavior()
