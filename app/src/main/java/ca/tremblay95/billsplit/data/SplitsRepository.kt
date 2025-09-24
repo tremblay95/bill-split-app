@@ -10,11 +10,6 @@ import kotlinx.coroutines.flow.Flow
 interface SplitsRepository {
 
     /**
-     *  Split Methods with Operations and Operands
-     */
-    fun getMethodWithOperationsAndOperands(id : Int) : Flow<MethodWithOperationsAndOperands?>
-
-    /**
      *  Split Method
      */
     fun getAllSplitMethods() : Flow<List<SplitMethod>>

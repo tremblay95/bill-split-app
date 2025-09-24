@@ -14,10 +14,6 @@ class OfflineSplitsRepository(
     private val operationDao : OperationDao,
     private val operandDao : OperandDao
 ) : SplitsRepository {
-    /**
-     *  Split Methods with Operations and Operands
-     */
-    override fun getMethodWithOperationsAndOperands(id : Int) : Flow<MethodWithOperationsAndOperands?> = methodDao.getMethodWithOperationsAndOperands(id)
 
     /**
      *  Split Method
