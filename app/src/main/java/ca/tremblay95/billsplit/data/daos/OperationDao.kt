@@ -22,7 +22,7 @@ interface OperationDao {
 
     @Transaction
     @Query("SELECT * FROM split_operation WHERE operation_id IN (:ids)")
-    fun getOperationsWithOperands(ids : List<Int?>) : Flow<Array<OperationWithOperands?>>
+    fun getOperationsWithOperands(ids : List<Int?>) : Flow<Array<OperationWithOperands>>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertSplitOperation(operation : SplitOperation)
