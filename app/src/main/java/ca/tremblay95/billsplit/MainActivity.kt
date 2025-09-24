@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import ca.tremblay95.billsplit.ui.BillSplitApp
+import ca.tremblay95.billsplit.BillSplitApp
 import ca.tremblay95.billsplit.ui.theme.BillSplitAppTheme
 
 class MainActivity : ComponentActivity() {

@@ -1,32 +1,32 @@
 package ca.tremblay95.billsplit.data
 
-import ca.tremblay95.billsplit.data.models.SplitMethod
-import ca.tremblay95.billsplit.data.models.SplitOperand
-import ca.tremblay95.billsplit.data.models.SplitOperation
+import ca.tremblay95.billsplit.data.model.SplitEntity
+import ca.tremblay95.billsplit.data.model.OperandEntity
+import ca.tremblay95.billsplit.data.model.OperationEntity
 import kotlinx.coroutines.flow.Flow
 
 // TODO: Consider inserting, updating, and deleting lists of each entity.
 interface SplitsRepository {
 
     /**
-     *  Split Method
+     *  Split
      */
-    fun getAllSplitMethods() : Flow<List<SplitMethod>>
-    suspend fun insertSplitMethod(method : SplitMethod)
-    suspend fun deleteSplitMethod(method : SplitMethod)
-    suspend fun updateSplitMethod(method : SplitMethod)
+    fun getAllSplits() : Flow<List<SplitEntity>>
+    suspend fun insertSplit(split : SplitEntity)
+    suspend fun deleteSplit(split : SplitEntity)
+    suspend fun updateSplit(split : SplitEntity)
 
     /**
-     *  Split Operation
+     *  Operation
      */
-    suspend fun insertSplitOperation(operation : SplitOperation)
-    suspend fun deleteSplitOperation(operation : SplitOperation)
-    suspend fun updateSplitOperation(operation : SplitOperation)
+    suspend fun insertOperation(operation : OperationEntity)
+    suspend fun deleteOperation(operation : OperationEntity)
+    suspend fun updateOperation(operation : OperationEntity)
 
     /**
-     *  Split Operand
+     *  Operand
      */
-    suspend fun insertSplitOperand(operand : SplitOperand)
-    suspend fun deleteSplitOperand(operand : SplitOperand)
-    suspend fun updateSplitOperand(operand : SplitOperand)
+    suspend fun insertOperand(operand : OperandEntity)
+    suspend fun deleteOperand(operand : OperandEntity)
+    suspend fun updateOperand(operand : OperandEntity)
 }
