@@ -26,8 +26,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import ca.tremblay95.billsplit.R
 import ca.tremblay95.billsplit.domain.model.Split
 import ca.tremblay95.billsplit.presentation.common.BillSplitTopBar
-import ca.tremblay95.billsplit.presentation.ui.AppViewModelProvider
-import ca.tremblay95.billsplit.ui.navigation.NavigationDestination
+import ca.tremblay95.billsplit.di.AppViewModelProvider
+import ca.tremblay95.billsplit.presentation.common.NavigationDestination
 import ca.tremblay95.billsplit.ui.theme.BillSplitAppTheme
 import kotlinx.coroutines.launch
 

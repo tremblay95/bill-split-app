@@ -1,4 +1,4 @@
-package ca.tremblay95.billsplit.ui.navigation
+package ca.tremblay95.billsplit.presentation.common
 
 interface NavigationDestination {
     val route : String

@@ -1,4 +1,4 @@
-package ca.tremblay95.billsplit.presentation.ui
+package ca.tremblay95.billsplit.di
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
@@ -10,17 +10,17 @@ import ca.tremblay95.billsplit.presentation.split_list.SplitListViewModel
 
 object AppViewModelProvider {
     val Factory = viewModelFactory {
-        // Initializer for HomeViewModel
+        // Initializer for SplitListViewModel
         initializer {
-            SplitListViewModel(billSplitApplication().container.splitsRepository)
+            SplitListViewModel(application().appModule.splitsRepository)
         }
 
-        // Initializer for NewSplitMethodViewModel
+        // Initializer for CreateSplitViewModel
         initializer {
-            CreateSplitViewModel(billSplitApplication().container.splitsRepository)
+            CreateSplitViewModel(application().appModule.splitsRepository)
         }
     }
 }
 
-fun CreationExtras.billSplitApplication() : BillSplitApplication =
+fun CreationExtras.application() : BillSplitApplication =
     (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as BillSplitApplication)
