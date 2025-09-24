@@ -1,6 +1,5 @@
 package ca.tremblay95.billsplit.data
 
-import ca.tremblay95.billsplit.data.relations.MethodWithOperationsAndOperands
 import ca.tremblay95.billsplit.data.models.SplitMethod
 import ca.tremblay95.billsplit.data.models.SplitOperand
 import ca.tremblay95.billsplit.data.models.SplitOperation

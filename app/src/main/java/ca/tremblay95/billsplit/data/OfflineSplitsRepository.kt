@@ -6,7 +6,6 @@ import ca.tremblay95.billsplit.data.daos.OperationDao
 import ca.tremblay95.billsplit.data.models.SplitMethod
 import ca.tremblay95.billsplit.data.models.SplitOperand
 import ca.tremblay95.billsplit.data.models.SplitOperation
-import ca.tremblay95.billsplit.data.relations.MethodWithOperationsAndOperands
 import kotlinx.coroutines.flow.Flow
 
 class OfflineSplitsRepository(
