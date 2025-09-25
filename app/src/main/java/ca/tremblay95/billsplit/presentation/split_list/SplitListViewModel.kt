@@ -2,16 +2,16 @@ package ca.tremblay95.billsplit.presentation.split_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ca.tremblay95.billsplit.domain.use_cases.GetSplitListUseCase
+import ca.tremblay95.billsplit.domain.use_cases.GetSplitList
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 class SplitListViewModel(
-    getSplitListUseCase : GetSplitListUseCase
+    getSplitList : GetSplitList
 ) : ViewModel() {
-    val uiState : StateFlow<SplitListState> = getSplitListUseCase().map { splitList ->
+    val uiState : StateFlow<SplitListState> = getSplitList().map { splitList ->
         SplitListState(splitList)
     }.stateIn(
         scope = viewModelScope,

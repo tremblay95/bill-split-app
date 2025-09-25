@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(CreateSplitDestination.route) {
                             CreateSplitScreen(
-                                navigateToEditSplitMethod = {},
+                                navigateBack = { navController.popBackStack() },
                                 onNavigateUp = { navController.navigateUp() }
                             )
                         }

@@ -6,7 +6,7 @@ import ca.tremblay95.billsplit.domain.repository.SplitRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class GetSplitListUseCase(
+class GetSplitList(
     private val repository : SplitRepository
 ) {
     operator fun invoke() : Flow<List<Split>> =

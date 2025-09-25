@@ -12,12 +12,12 @@ object AppViewModelProvider {
     val Factory = viewModelFactory {
         // Initializer for SplitListViewModel
         initializer {
-            SplitListViewModel(application().appModule.getSplitListUseCase)
+            SplitListViewModel(application().appModule.splitUseCases.getSplitList)
         }
 
         // Initializer for CreateSplitViewModel
         initializer {
-            CreateSplitViewModel(application().appModule.splitsRepository)
+            CreateSplitViewModel(application().appModule.splitUseCases.addSplit)
         }
     }
 }

@@ -39,7 +39,7 @@ object CreateSplitDestination : NavigationDestination {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateSplitScreen(
-    navigateToEditSplitMethod : () -> Unit,
+    navigateBack : () -> Unit,
     onNavigateUp : () -> Unit,
     canNavigateBack : Boolean = true,
     viewModel : CreateSplitViewModel = viewModel(factory = AppViewModelProvider.Factory)
@@ -61,7 +61,7 @@ fun CreateSplitScreen(
             onSaveClick = {
                 coroutineScope.launch {
                     viewModel.saveSplitMethod()
-                    navigateToEditSplitMethod()
+                    navigateBack()
                 }
             },
             modifier = Modifier

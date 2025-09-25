@@ -4,27 +4,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import ca.tremblay95.billsplit.domain.repository.SplitRepository
-import ca.tremblay95.billsplit.data.mappers.toSplitEntity
 import ca.tremblay95.billsplit.domain.model.Split
+import ca.tremblay95.billsplit.domain.use_cases.AddSplit
 
 // TODO: Pass in GetMethodsListUseCase
 class CreateSplitViewModel(
-    private val splitsRepository : SplitRepository
+    private val addSplit : AddSplit
 ) : ViewModel() {
     var uiState by mutableStateOf(CreateSplitState())
         private set
 
-    fun updateUiState(methodDetails : Split) {
+    fun updateUiState(split : Split) {
         uiState = CreateSplitState(
-            split = methodDetails,
-            isEntryValid = validateInput(methodDetails)
+            split = split,
+            isEntryValid = validateInput(split)
         )
     }
 
     suspend fun saveSplitMethod() {
         if (validateInput()) {
-            splitsRepository.insertSplit(uiState.split.toSplitEntity())
+            addSplit(uiState.split)
         }
     }
 

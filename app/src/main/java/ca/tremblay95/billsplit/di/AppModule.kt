@@ -1,23 +1,29 @@
 package ca.tremblay95.billsplit.di
 
 import android.content.Context
-import ca.tremblay95.billsplit.data.repository.OfflineSplitRepository
 import ca.tremblay95.billsplit.data.data_source.SplitDatabase
+import ca.tremblay95.billsplit.data.repository.OfflineSplitRepository
 import ca.tremblay95.billsplit.domain.repository.SplitRepository
-import ca.tremblay95.billsplit.domain.use_cases.GetSplitListUseCase
+import ca.tremblay95.billsplit.domain.use_cases.AddSplit
+import ca.tremblay95.billsplit.domain.use_cases.GetSplitList
+import ca.tremblay95.billsplit.domain.use_cases.SplitUseCases
 
 interface AppModule {
-    val splitsRepository : SplitRepository
-    val getSplitListUseCase : GetSplitListUseCase
+    val splitRepository : SplitRepository
+    val splitUseCases : SplitUseCases
 }
 
 class AppModuleImpl(context : Context) : AppModule {
-    override val splitsRepository : SplitRepository by lazy {
+    override val splitRepository : SplitRepository by lazy {
         val db = SplitDatabase.Companion.getDatabase(context)
         OfflineSplitRepository(db.methodDao(), db.operationDao(), db.operandDao())
     }
 
-    override val getSplitListUseCase : GetSplitListUseCase by lazy {
-        GetSplitListUseCase(splitsRepository)
+    override val splitUseCases : SplitUseCases by lazy {
+        SplitUseCases(
+            getSplitList = GetSplitList(splitRepository),
+            addSplit = AddSplit(splitRepository)
+        )
     }
+
 }
