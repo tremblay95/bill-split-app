@@ -12,17 +12,17 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface SplitDao {
     @Query("SELECT * FROM split ORDER BY split_id ASC")
-    fun getAllSplitMethods() : Flow<List<SplitEntity>>
+    fun getAllSplits() : Flow<List<SplitEntity>>
 
     @Query("SELECT * FROM split WHERE split_id = :splitId")
-    fun getSplitMethod(splitId : Int) : Flow<SplitEntity?>
+    fun getSplit(splitId : Int) : Flow<SplitEntity?>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insertSplitMethod(method : SplitEntity)
+    suspend fun insertSplit(method : SplitEntity)
 
     @Delete
-    suspend fun deleteSplitMethod(method : SplitEntity)
+    suspend fun deleteSplit(method : SplitEntity)
 
     @Update
-    suspend fun updateSplitMethod(method : SplitEntity)
+    suspend fun updateSplit(method : SplitEntity)
 }

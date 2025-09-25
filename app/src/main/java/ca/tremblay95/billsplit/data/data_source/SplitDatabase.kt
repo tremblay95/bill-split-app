@@ -10,7 +10,7 @@ import ca.tremblay95.billsplit.data.model.SplitEntity
 
 @Database(entities = [SplitEntity::class, OperationEntity::class, OperandEntity::class], version = 1, exportSchema = false)
 abstract class SplitDatabase : RoomDatabase() {
-    abstract fun methodDao() : SplitDao
+    abstract fun splitDao() : SplitDao
     abstract fun operationDao() : OperationDao
     abstract fun operandDao() : OperandDao
 

@@ -10,11 +10,11 @@ import ca.tremblay95.billsplit.data.model.OperandEntity
 @Dao
 interface OperandDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insertSplitOperand(operand : OperandEntity)
+    suspend fun insertOperand(operand : OperandEntity)
 
     @Delete
-    suspend fun deleteSplitOperand(operand: OperandEntity)
+    suspend fun deleteOperand(operand: OperandEntity)
 
     @Update
-    suspend fun updateSplitOperand(operand: OperandEntity)
+    suspend fun updateOperand(operand: OperandEntity)
 }

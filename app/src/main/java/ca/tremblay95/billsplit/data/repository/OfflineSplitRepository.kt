@@ -18,22 +18,22 @@ class OfflineSplitRepository(
     /**
      *  Split Method
      */
-    override fun getAllSplits() : Flow<List<SplitEntity>> = splitDao.getAllSplitMethods()
-    override suspend fun insertSplit(split : SplitEntity) = splitDao.insertSplitMethod(split)
-    override suspend fun deleteSplit(split : SplitEntity) = splitDao.deleteSplitMethod(split)
-    override suspend fun updateSplit(method : SplitEntity) = splitDao.updateSplitMethod(method)
+    override fun getAllSplits() : Flow<List<SplitEntity>> = splitDao.getAllSplits()
+    override suspend fun insertSplit(split : SplitEntity) = splitDao.insertSplit(split)
+    override suspend fun deleteSplit(split : SplitEntity) = splitDao.deleteSplit(split)
+    override suspend fun updateSplit(split : SplitEntity) = splitDao.updateSplit(split)
 
     /**
      *  Split Operation
      */
-    override suspend fun insertOperation(operation : OperationEntity) = operationDao.insertSplitOperation(operation)
-    override suspend fun deleteOperation(operation : OperationEntity) = operationDao.deleteSplitOperation(operation)
-    override suspend fun updateOperation(operation : OperationEntity) = operationDao.updateSplitOperation(operation)
+    override suspend fun insertOperation(operation : OperationEntity) = operationDao.insertOperation(operation)
+    override suspend fun deleteOperation(operation : OperationEntity) = operationDao.deleteOperation(operation)
+    override suspend fun updateOperation(operation : OperationEntity) = operationDao.updateOperation(operation)
 
     /**
      *  Split Operand
      */
-    override suspend fun insertOperand(operand : OperandEntity) = operandDao.insertSplitOperand(operand)
-    override suspend fun deleteOperand(operand : OperandEntity) = operandDao.deleteSplitOperand(operand)
-    override suspend fun updateOperand(operand : OperandEntity) = operandDao.updateSplitOperand(operand)
+    override suspend fun insertOperand(operand : OperandEntity) = operandDao.insertOperand(operand)
+    override suspend fun deleteOperand(operand : OperandEntity) = operandDao.deleteOperand(operand)
+    override suspend fun updateOperand(operand : OperandEntity) = operandDao.updateOperand(operand)
 }

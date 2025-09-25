@@ -16,7 +16,7 @@ interface AppModule {
 class AppModuleImpl(context : Context) : AppModule {
     override val splitRepository : SplitRepository by lazy {
         val db = SplitDatabase.Companion.getDatabase(context)
-        OfflineSplitRepository(db.methodDao(), db.operationDao(), db.operandDao())
+        OfflineSplitRepository(db.splitDao(), db.operationDao(), db.operandDao())
     }
 
     override val splitUseCases : SplitUseCases by lazy {

@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import ca.tremblay95.billsplit.data.data_source.SplitDatabase
 import ca.tremblay95.billsplit.data.model.OperandEntity
 import ca.tremblay95.billsplit.data.model.OperationEntity
 import ca.tremblay95.billsplit.data.relation.OperationWithOperands
@@ -41,33 +40,33 @@ class OperationDaoTest {
     }
 
     @Test
-    fun insertSplitOperation_splitOperationInsertedSuccessfully() = runTest {
+    fun insertOperation_operationInsertedSuccessfully() = runTest {
         val operation = OperationEntity(1, null, OperationType.Divide, null)
 
-        operationDao.insertSplitOperation(operation)
+        operationDao.insertOperation(operation)
 
         val result = operationDao.getOperationWithOperands(operation.operationId).first()
         assertThat(result?.operation).isEqualTo(operation)
     }
 
     @Test
-    fun deleteSplitOperation_splitOperationDeletedSuccessfully() = runTest {
+    fun deleteOperation_operationDeletedSuccessfully() = runTest {
         val operation = OperationEntity(1, null, OperationType.Divide, null)
 
-        operationDao.insertSplitOperation(operation)
-        operationDao.deleteSplitOperation(operation)
+        operationDao.insertOperation(operation)
+        operationDao.deleteOperation(operation)
 
         val result = operationDao.getOperationWithOperands(operation.operationId).first()
         assertThat(result).isNull()
     }
 
     @Test
-    fun updateSplitOperation_splitOperationUpdatedSuccessfully() = runTest {
+    fun updateOperation_operationUpdatedSuccessfully() = runTest {
         val operation = OperationEntity(1, null, OperationType.Divide, null)
         val updatedOperation = operation.copy(operationType = OperationType.Subtract)
 
-        operationDao.insertSplitOperation(operation)
-        operationDao.updateSplitOperation(updatedOperation)
+        operationDao.insertOperation(operation)
+        operationDao.updateOperation(updatedOperation)
 
         val result = operationDao.getOperationWithOperands(operation.operationId).first()
         assertThat(result?.operation).isEqualTo(updatedOperation)
@@ -77,7 +76,7 @@ class OperationDaoTest {
     fun getChildOperations_noChildren_emptyListReturned() = runTest {
         val operation = OperationEntity(1, null, OperationType.Divide, null)
 
-        operationDao.insertSplitOperation(operation)
+        operationDao.insertOperation(operation)
 
         val result = operationDao.getChildOperations(operation.operationId).first()
         assertThat(result).isEqualTo(emptyList<OperationEntity>())
@@ -90,8 +89,8 @@ class OperationDaoTest {
             OperationEntity(it + 1, parent.operationId, OperationType.Divide, it)
         }
 
-        operationDao.insertSplitOperation(parent)
-        children.forEach { operationDao.insertSplitOperation(it) }
+        operationDao.insertOperation(parent)
+        children.forEach { operationDao.insertOperation(it) }
 
         val result = operationDao.getChildOperations(parent.operationId).first()
         assertThat(result).isEqualTo(children)
@@ -106,8 +105,8 @@ class OperationDaoTest {
             OperandEntity(it, 1.0 / it, "operand$it", it - 1, operation.operationId)
         }
 
-        operationDao.insertSplitOperation(operation)
-        operands.forEach { operandDao.insertSplitOperand(it) }
+        operationDao.insertOperation(operation)
+        operands.forEach { operandDao.insertOperand(it) }
 
         val result = operationDao.getOperationWithOperands(operation.operationId).first()
         assertThat(result).isEqualTo(OperationWithOperands(operation, operands))
