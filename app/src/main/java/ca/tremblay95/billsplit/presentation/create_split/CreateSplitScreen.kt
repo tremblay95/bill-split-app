@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
 
 object CreateSplitDestination : NavigationDestination {
     override val route : String = "create_split_screen"
-    override val titleResource : Int = R.string.new_method_title
+    override val titleResource : Int = R.string.create_split_title
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
