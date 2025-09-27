@@ -6,7 +6,6 @@ import ca.tremblay95.billsplit.data.repository.OfflineSplitRepository
 import ca.tremblay95.billsplit.domain.repository.SplitRepository
 import ca.tremblay95.billsplit.domain.use_cases.AddSplit
 import ca.tremblay95.billsplit.domain.use_cases.GetSplitList
-import ca.tremblay95.billsplit.domain.use_cases.SplitUseCases
 
 interface AppModule {
     val splitRepository : SplitRepository
