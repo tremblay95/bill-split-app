@@ -1,9 +1,6 @@
-package ca.tremblay95.billsplit
+package ca.tremblay95.billsplit.domain.model
 
-import ca.tremblay95.billsplit.domain.model.DivideOperation
-import ca.tremblay95.billsplit.domain.model.Operand
-import ca.tremblay95.billsplit.domain.model.SubtractOperation
-import org.junit.Assert.assertEquals
+import org.junit.Assert
 import org.junit.Test
 
 /**
@@ -22,7 +19,7 @@ class OperationTests {
         val op = DivideOperation(opValues.map { Operand(it) })
         val actual = op.applyTo(total)
 
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
     }
 
     @Test
@@ -39,7 +36,7 @@ class OperationTests {
         parentOp.splitFurther(1, childOp)
         val actual = parentOp.applyTo(total)
 
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
     }
 
     @Test
@@ -51,7 +48,7 @@ class OperationTests {
         val op = SubtractOperation(opValues.map{ Operand(it) })
         val actual = op.applyTo(total)
 
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
     }
 
     @Test
@@ -67,7 +64,7 @@ class OperationTests {
         parentOp.splitFurther(1, childOp)
 
         val actual = parentOp.applyTo(total)
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
     }
 
     @Test
@@ -81,7 +78,7 @@ class OperationTests {
         parentOp.splitFurther(1, childOp)
         val actual = parentOp.applyTo(total)
 
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
     }
 
     @Test
@@ -95,6 +92,6 @@ class OperationTests {
         parentOp.splitFurther(1, childOp)
         val actual = parentOp.applyTo(total)
 
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
     }
 }
