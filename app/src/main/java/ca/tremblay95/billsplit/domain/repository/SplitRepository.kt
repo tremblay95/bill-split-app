@@ -12,6 +12,7 @@ interface SplitRepository {
      *  Split
      */
     fun getAllSplits() : Flow<List<SplitEntity>>
+    fun  getSplit(id : Int) : Flow<SplitEntity>
     suspend fun insertSplit(split : SplitEntity)
     suspend fun deleteSplit(split : SplitEntity)
     suspend fun updateSplit(split : SplitEntity)

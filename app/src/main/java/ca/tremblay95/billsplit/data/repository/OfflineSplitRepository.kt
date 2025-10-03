@@ -19,6 +19,7 @@ class OfflineSplitRepository(
      *  Split Method
      */
     override fun getAllSplits() : Flow<List<SplitEntity>> = splitDao.getAllSplits()
+    override fun getSplit(id : Int) : Flow<SplitEntity> = splitDao.getSplit(id)
     override suspend fun insertSplit(split : SplitEntity) = splitDao.insertSplit(split)
     override suspend fun deleteSplit(split : SplitEntity) = splitDao.deleteSplit(split)
     override suspend fun updateSplit(split : SplitEntity) = splitDao.updateSplit(split)

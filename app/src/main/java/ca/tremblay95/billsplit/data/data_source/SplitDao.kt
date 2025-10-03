@@ -15,7 +15,7 @@ interface SplitDao {
     fun getAllSplits() : Flow<List<SplitEntity>>
 
     @Query("SELECT * FROM split WHERE split_id = :splitId")
-    fun getSplit(splitId : Int) : Flow<SplitEntity?>
+    fun getSplit(splitId : Int) : Flow<SplitEntity>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertSplit(method : SplitEntity)
