@@ -3,11 +3,10 @@
     <string name="back_button">Back</string>
     <string name="create_split_title">New Split</string>
     <string name="no_splits_description">You have no splits.\nTap + to create one.</string>
-    <string name="create_method_title">New Split Method</string>
     <string name="save_action">Save</string>
     <string name="name_required">Name*</string>
     <string name="description">Description</string>
     <string name="required_fields">*required fields</string>
-    <string name="split_method_empty">This split doesn\'t do anything yet. Edit to add some functionality. </string>
     <string name="method_details_title">Split Method Details</string>
+    <string name="split_empty">This split doesn\'t do anything yet. Edit to add some functionality. </string>
 </resources>

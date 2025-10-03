@@ -1,14 +1,14 @@
 package ca.tremblay95.billsplit
 
 import android.app.Application
-import ca.tremblay95.billsplit.data.AppContainer
-import ca.tremblay95.billsplit.data.AppDataContainer
+import ca.tremblay95.billsplit.di.AppModule
+import ca.tremblay95.billsplit.di.AppModuleImpl
 
 class BillSplitApplication : Application() {
-    lateinit var container : AppContainer
+    lateinit var appModule : AppModule
 
     override fun onCreate() {
         super.onCreate()
-        container = AppDataContainer(this)
+        appModule = AppModuleImpl(this)
     }
 }
