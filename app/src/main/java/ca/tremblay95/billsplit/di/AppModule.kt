@@ -4,9 +4,9 @@ import android.content.Context
 import ca.tremblay95.billsplit.data.data_source.SplitDatabase
 import ca.tremblay95.billsplit.data.repository.OfflineSplitRepository
 import ca.tremblay95.billsplit.domain.repository.SplitRepository
-import ca.tremblay95.billsplit.domain.use_cases.AddSplit
-import ca.tremblay95.billsplit.domain.use_cases.GetSplit
-import ca.tremblay95.billsplit.domain.use_cases.GetSplitList
+import ca.tremblay95.billsplit.domain.use_cases.AddSplitImpl
+import ca.tremblay95.billsplit.domain.use_cases.GetSplitImpl
+import ca.tremblay95.billsplit.domain.use_cases.GetSplitListImpl
 
 interface AppModule {
     val splitRepository : SplitRepository
@@ -21,9 +21,9 @@ class AppModuleImpl(context : Context) : AppModule {
 
     override val splitUseCases : SplitUseCases by lazy {
         SplitUseCases(
-            getSplitList = GetSplitList(splitRepository),
-            getSplit = GetSplit(splitRepository),
-            addSplit = AddSplit(splitRepository)
+            getSplitList = GetSplitListImpl(splitRepository),
+            getSplit = GetSplitImpl(splitRepository),
+            addSplit = AddSplitImpl(splitRepository)
         )
     }
 
