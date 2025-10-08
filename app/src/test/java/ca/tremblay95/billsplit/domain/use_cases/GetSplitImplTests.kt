@@ -1,11 +1,12 @@
 package ca.tremblay95.billsplit.domain.use_cases
 
-import ca.tremblay95.billsplit.data.mappers.toSplit
-import ca.tremblay95.billsplit.data.model.SplitEntity
+import ca.tremblay95.billsplit.common.Result
 import ca.tremblay95.billsplit.domain.fakes.FakeSplitRepository
+import ca.tremblay95.billsplit.domain.model.Split
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
 
@@ -22,12 +23,16 @@ class GetSplitImplTests {
 
     @Test
     fun getSplit_validSplitId_correctSplitEntityReturned() = runTest {
-        val splitEntity = SplitEntity(1, "test_entity", "this is a test entity")
-        splitRepository.splitEntities = mutableListOf(splitEntity)
+        val split = Split(1, "test_entity", "this is a test entity")
+        splitRepository.splits = mutableListOf(split)
 
-        val actual = getSplit(splitEntity.splitId).first()
+        val actual = getSplit(split.id).first()
 
-        assertThat(actual).isEqualTo(splitEntity.toSplit())
+        if (actual is Result.Success<Split>) {
+            assertThat(actual.data).isEqualTo(split)
+        } else {
+            fail()
+        }
     }
 
     @Test

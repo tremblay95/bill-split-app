@@ -1,8 +1,9 @@
 package ca.tremblay95.billsplit.domain.repository
 
+import ca.tremblay95.billsplit.common.Result
 import ca.tremblay95.billsplit.data.model.OperandEntity
 import ca.tremblay95.billsplit.data.model.OperationEntity
-import ca.tremblay95.billsplit.data.model.SplitEntity
+import ca.tremblay95.billsplit.domain.model.Split
 import kotlinx.coroutines.flow.Flow
 
 // TODO: Consider inserting, updating, and deleting lists of each entity.
@@ -11,12 +12,14 @@ interface SplitRepository {
     /**
      *  Split
      */
-    fun getAllSplits() : Flow<List<SplitEntity>>
-    fun  getSplit(id : Int) : Flow<SplitEntity>
-    suspend fun insertSplit(split : SplitEntity)
-    suspend fun deleteSplit(split : SplitEntity)
-    suspend fun updateSplit(split : SplitEntity)
+    fun getAllSplits() : Flow<Result<List<Split>>>
+    fun  getSplit(id : Int) : Flow<Result<Split>>
+    suspend fun insertSplit(split : Split) : Result<Unit>
+    suspend fun deleteSplit(split : Split) : Result<Unit>
+    suspend fun updateSplit(split : Split) : Result<Unit>
 
+
+    // TODO: Domain layer should not know about Entities from the Data layer
     /**
      *  Operation
      */

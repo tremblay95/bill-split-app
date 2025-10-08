@@ -15,14 +15,14 @@ interface SplitDao {
     fun getAllSplits() : Flow<List<SplitEntity>>
 
     @Query("SELECT * FROM split WHERE split_id = :splitId")
-    fun getSplit(splitId : Int) : Flow<SplitEntity>
+    fun getSplit(splitId : Int) : Flow<SplitEntity?>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insertSplit(method : SplitEntity)
+    suspend fun insertSplit(method : SplitEntity) : Long
 
     @Delete
-    suspend fun deleteSplit(method : SplitEntity)
+    suspend fun deleteSplit(method : SplitEntity) : Int
 
     @Update
-    suspend fun updateSplit(method : SplitEntity)
+    suspend fun updateSplit(method : SplitEntity) : Int
 }

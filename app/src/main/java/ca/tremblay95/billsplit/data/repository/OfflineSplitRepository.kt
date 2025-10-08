@@ -1,13 +1,20 @@
 package ca.tremblay95.billsplit.data.repository
 
+import android.database.sqlite.SQLiteConstraintException
+import ca.tremblay95.billsplit.common.Result
 import ca.tremblay95.billsplit.data.data_source.OperandDao
 import ca.tremblay95.billsplit.data.data_source.OperationDao
 import ca.tremblay95.billsplit.data.data_source.SplitDao
+import ca.tremblay95.billsplit.data.mappers.toSplit
+import ca.tremblay95.billsplit.data.mappers.toSplitEntity
 import ca.tremblay95.billsplit.data.model.OperandEntity
 import ca.tremblay95.billsplit.data.model.OperationEntity
-import ca.tremblay95.billsplit.data.model.SplitEntity
+import ca.tremblay95.billsplit.domain.model.Split
 import ca.tremblay95.billsplit.domain.repository.SplitRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 
 class OfflineSplitRepository(
     private val splitDao : SplitDao,
@@ -18,11 +25,72 @@ class OfflineSplitRepository(
     /**
      *  Split Method
      */
-    override fun getAllSplits() : Flow<List<SplitEntity>> = splitDao.getAllSplits()
-    override fun getSplit(id : Int) : Flow<SplitEntity> = splitDao.getSplit(id)
-    override suspend fun insertSplit(split : SplitEntity) = splitDao.insertSplit(split)
-    override suspend fun deleteSplit(split : SplitEntity) = splitDao.deleteSplit(split)
-    override suspend fun updateSplit(split : SplitEntity) = splitDao.updateSplit(split)
+    override fun getAllSplits() : Flow<Result<List<Split>>> = flow {
+        emit(Result.Loading)
+
+        splitDao.getAllSplits()
+            .map { splitEntities ->
+                Result.Success(splitEntities.map { splitEntity ->
+                    splitEntity.toSplit()
+                })
+            }
+            .catch { e ->
+                emit(Result.Error("Database error: ${e.message}", e))
+            }
+            .collect { result ->
+                emit(result)
+            }
+    }
+
+    override fun getSplit(id : Int) : Flow<Result<Split>> = flow {
+        emit(Result.Loading)
+
+        splitDao.getSplit(id)
+            .map { splitEntity ->
+                if (splitEntity != null)
+                    Result.Success(splitEntity.toSplit())
+                else
+                    Result.NotFound
+            }
+            .catch { e ->
+                emit(Result.Error("Database error: ${e.message}", e))
+            }
+            .collect { result ->
+                emit(result)
+            }
+    }
+
+    override suspend fun insertSplit(split : Split) : Result<Unit> {
+        return try {
+            val id = splitDao.insertSplit(split.toSplitEntity())
+            if (id > 0) Result.Success(Unit)
+            else Result.Error("Insert failed")
+        } catch (e : SQLiteConstraintException) {
+            Result.Error("Split already exists", e)
+        } catch (e : Exception) {
+            Result.Error("Database insertion error: ${e.message}", e)
+        }
+    }
+
+    override suspend fun deleteSplit(split : Split) : Result<Unit> {
+        return try {
+            val rows = splitDao.deleteSplit(split.toSplitEntity())
+            if (rows > 0) Result.Success(Unit)
+            else Result.NotFound
+        } catch (e : Exception) {
+            Result.Error("Database delete error: ${e.message}", e)
+        }
+    }
+
+    override suspend fun updateSplit(split : Split) : Result<Unit> {
+        return try {
+            val rows = splitDao.updateSplit(split.toSplitEntity())
+            if (rows > 0) Result.Success(Unit)
+            else Result.NotFound
+        } catch (e : Exception) {
+            Result.Error("Database update error: ${e.message}", e)
+        }
+    }
 
     /**
      *  Split Operation

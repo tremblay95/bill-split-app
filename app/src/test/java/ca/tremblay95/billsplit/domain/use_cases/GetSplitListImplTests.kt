@@ -1,10 +1,13 @@
 package ca.tremblay95.billsplit.domain.use_cases
 
+import ca.tremblay95.billsplit.common.Result
 import ca.tremblay95.billsplit.data.model.SplitEntity
 import ca.tremblay95.billsplit.domain.fakes.FakeSplitRepository
+import ca.tremblay95.billsplit.domain.model.Split
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
 
@@ -24,23 +27,31 @@ class GetSplitListImplTests {
 
         val actual = splitRepository.getAllSplits().first()
 
-        assertThat(actual).isEmpty()
+        if (actual is Result.Success<List<Split>>) {
+            assertThat(actual.data).isEmpty()
+        } else {
+            fail()
+        }
     }
 
     @Test
     fun getSplitList_listNotEmpty_allEntriesReturned() = runTest {
-        splitRepository.splitEntities = mutableListOf<SplitEntity>(
-            SplitEntity(1, "1", ""),
-            SplitEntity(2, "2", ""),
-            SplitEntity(3, "3", "")
+        splitRepository.splits = mutableListOf<Split>(
+            Split(1, "1", ""),
+            Split(2, "2", ""),
+            Split(3, "3", "")
         )
 
         val actual = splitRepository.getAllSplits().first()
 
-        assertThat(actual.count()).isEqualTo(splitRepository.splitEntities.count())
+        if (actual is Result.Success<List<Split>>) {
+            assertThat(actual.data.count()).isEqualTo(splitRepository.splits.count())
 
-        actual.zip(splitRepository.splitEntities).forEach { (actual, expected) ->
-            assertThat(actual).isEqualTo(expected)
+            actual.data.zip(splitRepository.splits).forEach { (actual, expected) ->
+                assertThat(actual).isEqualTo(expected)
+            }
+        } else {
+            fail()
         }
     }
 }
