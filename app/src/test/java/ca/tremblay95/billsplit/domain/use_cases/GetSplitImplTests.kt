@@ -31,7 +31,7 @@ class GetSplitImplTests {
         if (actual is Result.Success<Split>) {
             assertThat(actual.data).isEqualTo(split)
         } else {
-            fail()
+            fail("Expected Result.Success")
         }
     }
 
@@ -40,7 +40,7 @@ class GetSplitImplTests {
         val actual = getSplit(420).first()
 
         if (actual !is Result.NotFound) {
-            fail()
+            fail("Expected Result.NotFound")
         }
     }
 }

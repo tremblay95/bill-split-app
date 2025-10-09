@@ -29,7 +29,7 @@ class GetSplitListImplTests {
         if (actual is Result.Success<List<Split>>) {
             assertThat(actual.data).isEmpty()
         } else {
-            fail()
+            fail("Expected Result.Success")
         }
     }
 
@@ -50,7 +50,7 @@ class GetSplitListImplTests {
                 assertThat(actual).isEqualTo(expected)
             }
         } else {
-            fail()
+            fail("Expected Result.Success")
         }
     }
 }

@@ -41,7 +41,7 @@ class AddSplitImplTests {
 
             assert(actual is Result.Error)
         } catch (e : Exception) {
-            fail("Not handled gracefully")
+            fail("Exception not handled")
         }
     }
 }
