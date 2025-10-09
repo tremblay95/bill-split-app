@@ -24,7 +24,7 @@ class GetSplitImplTests {
     @Test
     fun getSplitInvoke_validSplitId_returnsCorrectEntry_Success() = runTest {
         val split = Split(1, "test_entity", "this is a test entity")
-        splitRepository.splits = mutableListOf(split)
+        splitRepository.splits[split.id] = split
 
         val actual = getSplit(split.id).first()
 

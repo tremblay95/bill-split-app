@@ -27,14 +27,14 @@ class AddSplitImplTests {
         val result = addSplit(split)
         assertThat(result is Result.Success<Unit>).isTrue()
 
-        val actual = splitRepository.splits.first()
+        val actual = splitRepository.splits.values.first()
         assertThat(actual).isEqualTo(split)
     }
 
     @Test
     fun addSplitInvoke_duplicateSplit_returnsError() = runTest {
         val split = Split(1, "test_split", "this is a test split")
-        splitRepository.splits = mutableListOf(split)
+        splitRepository.splits[split.id] = split
 
         try {
             val actual = addSplit(split)

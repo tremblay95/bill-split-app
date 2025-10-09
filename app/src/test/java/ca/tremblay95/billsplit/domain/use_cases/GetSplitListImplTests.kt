@@ -36,18 +36,17 @@ class GetSplitListImplTests {
 
     @Test
     fun getSplitListInvoke_listNotEmpty_returnsCompleteList_Success() = runTest {
-        splitRepository.splits = mutableListOf(
-            Split(1, "1", ""),
-            Split(2, "2", ""),
-            Split(3, "3", "")
-        )
+        splitRepository.splits[1] = Split(1, "1", "")
+        splitRepository.splits[2] = Split(2, "2", "")
+        splitRepository.splits[3] = Split(3, "3", "")
+
 
         val actual = splitRepository.getAllSplits().first()
 
         if (actual is Result.Success<List<Split>>) {
             assertThat(actual.data.count()).isEqualTo(splitRepository.splits.count())
 
-            actual.data.zip(splitRepository.splits).forEach { (actual, expected) ->
+            actual.data.zip(splitRepository.splits.values).forEach { (actual, expected) ->
                 assertThat(actual).isEqualTo(expected)
             }
         }
