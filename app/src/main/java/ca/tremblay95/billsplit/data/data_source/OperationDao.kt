@@ -25,11 +25,11 @@ interface OperationDao {
     fun getOperationsWithOperands(ids : List<Int?>) : Flow<Array<OperationWithOperands>>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insertOperation(operation : OperationEntity)
+    suspend fun insertOperation(operationEntity : OperationEntity)
 
     @Delete
-    suspend fun deleteOperation(operation : OperationEntity)
+    suspend fun deleteOperation(operationEntity : OperationEntity)
 
     @Update
-    suspend fun updateOperation(operation : OperationEntity)
+    suspend fun updateOperation(operationEntity : OperationEntity)
 }

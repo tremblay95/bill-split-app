@@ -24,10 +24,10 @@ class AddSplitImplTests {
     fun addSplitInvoke_newSplit_returnsResultSuccess() = runTest {
         val split = Split(1, "test_split", "this is a test split")
 
-        addSplit(split)
+        val result = addSplit(split)
+        assertThat(result is Result.Success<Unit>).isTrue()
 
         val actual = splitRepository.splits.first()
-
         assertThat(actual).isEqualTo(split)
     }
 
@@ -40,7 +40,8 @@ class AddSplitImplTests {
             val actual = addSplit(split)
 
             assert(actual is Result.Error)
-        } catch (e : Exception) {
+        }
+        catch (e : Exception) {
             fail("Exception not handled")
         }
     }

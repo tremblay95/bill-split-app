@@ -30,7 +30,8 @@ class GetSplitImplTests {
 
         if (actual is Result.Success<Split>) {
             assertThat(actual.data).isEqualTo(split)
-        } else {
+        }
+        else {
             fail("Expected Result.Success")
         }
     }

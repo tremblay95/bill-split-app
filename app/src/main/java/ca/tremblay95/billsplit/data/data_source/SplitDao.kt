@@ -18,11 +18,11 @@ interface SplitDao {
     fun getSplit(splitId : Int) : Flow<SplitEntity?>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insertSplit(method : SplitEntity) : Long
+    suspend fun insertSplit(splitEntity : SplitEntity) : Long
 
     @Delete
-    suspend fun deleteSplit(method : SplitEntity) : Int
+    suspend fun deleteSplit(splitEntity : SplitEntity) : Int
 
     @Update
-    suspend fun updateSplit(method : SplitEntity) : Int
+    suspend fun updateSplit(splitEntity : SplitEntity) : Int
 }

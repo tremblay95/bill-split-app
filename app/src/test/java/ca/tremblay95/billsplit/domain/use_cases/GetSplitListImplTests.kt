@@ -28,7 +28,8 @@ class GetSplitListImplTests {
 
         if (actual is Result.Success<List<Split>>) {
             assertThat(actual.data).isEmpty()
-        } else {
+        }
+        else {
             fail("Expected Result.Success")
         }
     }
@@ -49,7 +50,8 @@ class GetSplitListImplTests {
             actual.data.zip(splitRepository.splits).forEach { (actual, expected) ->
                 assertThat(actual).isEqualTo(expected)
             }
-        } else {
+        }
+        else {
             fail("Expected Result.Success")
         }
     }

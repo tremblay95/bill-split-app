@@ -47,10 +47,12 @@ class OfflineSplitRepository(
 
         splitDao.getSplit(id)
             .map { splitEntity ->
-                if (splitEntity != null)
+                if (splitEntity != null) {
                     Result.Success(splitEntity.toSplit())
-                else
+                }
+                else {
                     Result.NotFound
+                }
             }
             .catch { e ->
                 emit(Result.Error("Database error: ${e.message}", e))
@@ -63,11 +65,17 @@ class OfflineSplitRepository(
     override suspend fun insertSplit(split : Split) : Result<Unit> {
         return try {
             val id = splitDao.insertSplit(split.toSplitEntity())
-            if (id > 0) Result.Success(Unit)
-            else Result.Error("Insert failed")
-        } catch (e : SQLiteConstraintException) {
+            if (id > 0) {
+                Result.Success(Unit)
+            }
+            else {
+                Result.Error("Insert failed")
+            }
+        }
+        catch (e : SQLiteConstraintException) {
             Result.Error("Split already exists", e)
-        } catch (e : Exception) {
+        }
+        catch (e : Exception) {
             Result.Error("Database insertion error: ${e.message}", e)
         }
     }
@@ -75,8 +83,12 @@ class OfflineSplitRepository(
     override suspend fun deleteSplit(split : Split) : Result<Unit> {
         return try {
             val rows = splitDao.deleteSplit(split.toSplitEntity())
-            if (rows > 0) Result.Success(Unit)
-            else Result.NotFound
+            if (rows > 0) {
+                Result.Success(Unit)
+            }
+            else {
+                Result.NotFound
+            }
         } catch (e : Exception) {
             Result.Error("Database delete error: ${e.message}", e)
         }
@@ -85,8 +97,12 @@ class OfflineSplitRepository(
     override suspend fun updateSplit(split : Split) : Result<Unit> {
         return try {
             val rows = splitDao.updateSplit(split.toSplitEntity())
-            if (rows > 0) Result.Success(Unit)
-            else Result.NotFound
+            if (rows > 0) {
+                Result.Success(Unit)
+            }
+            else {
+                Result.NotFound
+            }
         } catch (e : Exception) {
             Result.Error("Database update error: ${e.message}", e)
         }
