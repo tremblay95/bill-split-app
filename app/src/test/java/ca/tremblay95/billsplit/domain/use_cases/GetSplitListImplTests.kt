@@ -22,7 +22,7 @@ class GetSplitListImplTests {
     }
 
     @Test
-    fun getSplitListInvoke_listEmpty_returnsEmptyList_ResultSuccess() = runTest {
+    fun getSplitListInvoke_listEmpty_returnsEmptyList_Success() = runTest {
 
         val actual = splitRepository.getAllSplits().first()
 
@@ -35,7 +35,7 @@ class GetSplitListImplTests {
     }
 
     @Test
-    fun getSplitListInvoke_listNotEmpty_returnsCompleteList_ResultSuccess() = runTest {
+    fun getSplitListInvoke_listNotEmpty_returnsCompleteList_Success() = runTest {
         splitRepository.splits = mutableListOf(
             Split(1, "1", ""),
             Split(2, "2", ""),

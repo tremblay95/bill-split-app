@@ -21,7 +21,7 @@ class AddSplitImplTests {
     }
 
     @Test
-    fun addSplitInvoke_newSplit_returnsResultSuccess() = runTest {
+    fun addSplitInvoke_newSplit_returnsSuccess() = runTest {
         val split = Split(1, "test_split", "this is a test split")
 
         val result = addSplit(split)
@@ -32,7 +32,7 @@ class AddSplitImplTests {
     }
 
     @Test
-    fun addSplitInvoke_duplicateSplit_returnsResultError() = runTest {
+    fun addSplitInvoke_duplicateSplit_returnsError() = runTest {
         val split = Split(1, "test_split", "this is a test split")
         splitRepository.splits = mutableListOf(split)
 
