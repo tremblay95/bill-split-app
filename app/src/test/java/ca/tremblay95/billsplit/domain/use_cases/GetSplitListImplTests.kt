@@ -1,7 +1,6 @@
 package ca.tremblay95.billsplit.domain.use_cases
 
 import ca.tremblay95.billsplit.common.Result
-import ca.tremblay95.billsplit.data.model.SplitEntity
 import ca.tremblay95.billsplit.domain.fakes.FakeSplitRepository
 import ca.tremblay95.billsplit.domain.model.Split
 import com.google.common.truth.Truth.assertThat
@@ -23,7 +22,7 @@ class GetSplitListImplTests {
     }
 
     @Test
-    fun getSplitList_listEmpty_emptyListReturned() = runTest {
+    fun getSplitListInvoke_listEmpty_returnsEmptyList_ResultSuccess() = runTest {
 
         val actual = splitRepository.getAllSplits().first()
 
@@ -35,8 +34,8 @@ class GetSplitListImplTests {
     }
 
     @Test
-    fun getSplitList_listNotEmpty_allEntriesReturned() = runTest {
-        splitRepository.splits = mutableListOf<Split>(
+    fun getSplitListInvoke_listNotEmpty_returnsCompleteList_ResultSuccess() = runTest {
+        splitRepository.splits = mutableListOf(
             Split(1, "1", ""),
             Split(2, "2", ""),
             Split(3, "3", "")

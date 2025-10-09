@@ -21,7 +21,8 @@ class FakeSplitRepository : SplitRepository {
     }
 
     override fun getSplit(id : Int) : Flow<Result<Split>> = flow {
-        emit(Result.Success(splits.filter { it.id == id }.first()))
+        val split = splits.filter { it.id == id }.firstOrNull()
+        emit(if (split != null) Result.Success(split) else Result.NotFound)
     }
 
     override suspend fun insertSplit(split : Split) : Result<Unit> {

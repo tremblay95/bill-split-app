@@ -22,7 +22,7 @@ class GetSplitImplTests {
     }
 
     @Test
-    fun getSplit_validSplitId_correctSplitEntityReturned() = runTest {
+    fun getSplitInvoke_validSplitId_returnsCorrectEntry_ResultSuccess() = runTest {
         val split = Split(1, "test_entity", "this is a test entity")
         splitRepository.splits = mutableListOf(split)
 
@@ -36,7 +36,11 @@ class GetSplitImplTests {
     }
 
     @Test
-    fun getSplit_invalidSplitId_handledCorrectly() {
+    fun getSplitInvoke_badSplitId_returnsResultNotFound() = runTest {
+        val actual = getSplit(420).first()
 
+        if (actual !is Result.NotFound) {
+            fail()
+        }
     }
 }
