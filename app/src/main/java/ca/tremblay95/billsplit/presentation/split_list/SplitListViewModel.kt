@@ -31,7 +31,7 @@ class SplitListViewModel(
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
-        initialValue = SplitListState()
+        initialValue = SplitListState(isLoading = true)
     )
 
     companion object {
