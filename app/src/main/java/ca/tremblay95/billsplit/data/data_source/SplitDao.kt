@@ -23,6 +23,6 @@ interface SplitDao {
     @Delete
     suspend fun deleteSplit(splitEntity : SplitEntity) : Int
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.ABORT)
     suspend fun updateSplit(splitEntity : SplitEntity) : Int
 }

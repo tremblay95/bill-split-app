@@ -1,5 +1,6 @@
 package ca.tremblay95.billsplit.data.fakes
 
+import android.database.sqlite.SQLiteConstraintException
 import ca.tremblay95.billsplit.data.data_source.SplitDao
 import ca.tremblay95.billsplit.data.model.SplitEntity
 import kotlinx.coroutines.flow.Flow
@@ -37,7 +38,7 @@ class FakeSplitDao : SplitDao {
         }
 
         return if (splitEntities.containsKey(splitEntity.splitId)) {
-            -1
+            throw SQLiteConstraintException()
         }
         else {
             splitEntities[splitEntity.splitId] = splitEntity
@@ -63,6 +64,13 @@ class FakeSplitDao : SplitDao {
         }
 
         return if (splitEntities.containsKey(splitEntity.splitId)) {
+
+            if (splitEntities.values.count { entity ->
+                entity.splitId != splitEntity.splitId && entity.name == splitEntity.name
+            } > 0) {
+                throw SQLiteConstraintException()
+            }
+
             splitEntities[splitEntity.splitId] = splitEntity
             1
         }

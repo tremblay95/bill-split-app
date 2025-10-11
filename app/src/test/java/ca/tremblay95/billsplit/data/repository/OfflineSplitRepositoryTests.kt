@@ -1,6 +1,7 @@
 package ca.tremblay95.billsplit.data.repository
 
 import app.cash.turbine.test
+import ca.tremblay95.billsplit.common.BillSplitError
 import ca.tremblay95.billsplit.common.Result
 import ca.tremblay95.billsplit.data.fakes.FakeOperandDao
 import ca.tremblay95.billsplit.data.fakes.FakeOperationDao
@@ -11,7 +12,6 @@ import ca.tremblay95.billsplit.data.model.SplitEntity
 import ca.tremblay95.billsplit.domain.model.Split
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
 
@@ -37,11 +37,10 @@ class OfflineSplitRepositoryTests {
             assertThat(awaitItem() is Result.Loading).isTrue()
 
             val actual = awaitItem()
+
+            assertThat(actual is Result.Success).isTrue()
             if (actual is Result.Success<List<Split>>) {
                 assertThat(actual.data).isEmpty()
-            }
-            else {
-                fail("Expected Result.Success")
             }
 
             awaitComplete()
@@ -61,6 +60,8 @@ class OfflineSplitRepositoryTests {
             assertThat(awaitItem() is Result.Loading).isTrue()
 
             val actual = awaitItem()
+
+            assertThat(actual is Result.Success).isTrue()
             if (actual is Result.Success<List<Split>>) {
                 assertThat(actual.data.size).isEqualTo(splitEntities.size)
                 
@@ -70,21 +71,24 @@ class OfflineSplitRepositoryTests {
                         assertThat(split).isEqualTo(entity.toSplit())
                     }
             }
-            else {
-                fail("Expected Result.Success")
-            }
 
             awaitComplete()
         }
     }
 
     @Test
-    fun getAllSplits_splitDaoThrowsException_returnsLoading_Error() = runTest {
+    fun getAllSplits_splitDaoThrowsException_returnsLoading_UnknownError() = runTest {
         splitDao.setShouldThrowException()
 
         offlineSplitRepository.getAllSplits().test {
             assertThat(awaitItem() is Result.Loading).isTrue()
-            assertThat(awaitItem() is Result.Error).isTrue()
+
+            val actual = awaitItem()
+
+            assertThat(actual is Result.Error).isTrue()
+            if (actual is Result.Error) {
+                assertThat(actual.reason is BillSplitError.Unknown).isTrue()
+            }
 
             awaitComplete()
         }
@@ -99,11 +103,10 @@ class OfflineSplitRepositoryTests {
             assertThat(awaitItem() is Result.Loading).isTrue()
 
             val actual = awaitItem()
+
+            assertThat(actual is Result.Success).isTrue()
             if (actual is Result.Success<Split>) {
                 assertThat(actual.data).isEqualTo(splitEntity.toSplit())
-            }
-            else {
-                fail("Expected Result.Success")
             }
 
             awaitComplete()
@@ -115,28 +118,30 @@ class OfflineSplitRepositoryTests {
         val splitEntity = SplitEntity(1, "1", "1")
         splitDao.splitEntities[splitEntity.splitId] = splitEntity
 
-        offlineSplitRepository.getSplit(splitEntity.splitId).test {
+        offlineSplitRepository.getSplit(27).test {
             assertThat(awaitItem() is Result.Loading).isTrue()
 
             val actual = awaitItem()
-            if (actual is Result.Success<Split>) {
-                assertThat(actual.data).isEqualTo(splitEntity.toSplit())
-            }
-            else {
-                fail("Expected Result.Success")
-            }
+
+            assertThat(actual is Result.NotFound).isTrue()
 
             awaitComplete()
         }
     }
 
     @Test
-    fun getSplit_splitDaoThrowsError_returnsLoading_Error() = runTest {
+    fun getSplit_splitDaoThrowsException_returnsLoading_UnknownError() = runTest {
         splitDao.setShouldThrowException()
 
         offlineSplitRepository.getSplit(1).test {
             assertThat(awaitItem() is Result.Loading).isTrue()
-            assertThat(awaitItem() is Result.Error).isTrue()
+
+            val actual = awaitItem()
+
+            assertThat(actual is Result.Error).isTrue()
+            if (actual is Result.Error) {
+                assertThat(actual.reason is BillSplitError.Unknown).isTrue()
+            }
 
             awaitComplete()
         }
@@ -147,25 +152,34 @@ class OfflineSplitRepositoryTests {
         val split = Split(1, "1", "1")
 
         val actual = offlineSplitRepository.insertSplit(split)
+
         assertThat(actual is Result.Success).isTrue()
         assertThat(splitDao.splitEntities).containsKey(split.id)
     }
 
     @Test
-    fun insertSplit_duplicateSplit_returnsError() = runTest {
+    fun insertSplit_duplicateSplit_returnsDuplicateError() = runTest {
         val split = Split(1, "1", "1")
         splitDao.splitEntities[split.id] = split.toSplitEntity()
 
         val actual = offlineSplitRepository.insertSplit(split)
+
         assertThat(actual is Result.Error).isTrue()
+        if (actual is Result.Error) {
+            assertThat(actual.reason is BillSplitError.DuplicateName).isTrue()
+        }
     }
 
     @Test
-    fun insertSplit_splitDaoThrowsException_returnsError() = runTest {
+    fun insertSplit_splitDaoThrowsException_returnsUnknownError() = runTest {
         splitDao.setShouldThrowException()
 
         val actual = offlineSplitRepository.insertSplit(Split(1, "1", "1"))
+
         assertThat(actual is Result.Error).isTrue()
+        if (actual is Result.Error) {
+            assertThat(actual.reason is BillSplitError.Unknown).isTrue()
+        }
     }
 
     @Test
@@ -174,6 +188,7 @@ class OfflineSplitRepositoryTests {
         splitDao.splitEntities[split.id] = split.toSplitEntity()
 
         val actual = offlineSplitRepository.deleteSplit(split)
+
         assertThat(actual is Result.Success).isTrue()
         assertThat(splitDao.splitEntities).doesNotContainKey(split.id)
     }
@@ -185,11 +200,15 @@ class OfflineSplitRepositoryTests {
     }
 
     @Test
-    fun deleteSplit_splitDaoThrowsException_returnsError() = runTest {
+    fun deleteSplit_splitDaoThrowsException_returnsUnknownError() = runTest {
         splitDao.setShouldThrowException()
 
         val actual = offlineSplitRepository.deleteSplit(Split(1, "", ""))
+
         assertThat(actual is Result.Error).isTrue()
+        if (actual is Result.Error) {
+            assertThat(actual.reason is BillSplitError.Unknown).isTrue()
+        }
     }
 
     @Test
@@ -200,6 +219,7 @@ class OfflineSplitRepositoryTests {
         split = split.copy(name = "new name")
 
         val actual = offlineSplitRepository.updateSplit(split)
+
         assertThat(actual is Result.Success).isTrue()
         assertThat(splitDao.splitEntities[split.id]).isEqualTo(split.toSplitEntity())
     }
@@ -211,10 +231,30 @@ class OfflineSplitRepositoryTests {
     }
 
     @Test
-    fun updateSplit_splitDaoThrowsException_returnsError() = runTest {
+    fun updateSplit_duplicateName_returnsDuplicateError() = runTest {
+        var split1 = Split(1, "1", "")
+        var split2 = Split(2, "2", "")
+
+        splitDao.splitEntities[split1.id] = split1.toSplitEntity()
+        splitDao.splitEntities[split2.id] = split2.toSplitEntity()
+
+        val actual = offlineSplitRepository.updateSplit(split2.copy(name = split1.name))
+
+        assertThat(actual is Result.Error).isTrue()
+        if (actual is Result.Error) {
+            assertThat(actual.reason is BillSplitError.DuplicateName).isTrue()
+        }
+    }
+
+    @Test
+    fun updateSplit_splitDaoThrowsException_returnsUnknownError() = runTest {
         splitDao.setShouldThrowException()
 
         val actual = offlineSplitRepository.updateSplit(Split(1, "", ""))
+
         assertThat(actual is Result.Error).isTrue()
+        if (actual is Result.Error) {
+            assertThat(actual.reason is BillSplitError.Unknown).isTrue()
+        }
     }
 }

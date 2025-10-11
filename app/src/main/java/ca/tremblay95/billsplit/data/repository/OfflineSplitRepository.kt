@@ -1,6 +1,7 @@
 package ca.tremblay95.billsplit.data.repository
 
 import android.database.sqlite.SQLiteConstraintException
+import ca.tremblay95.billsplit.common.BillSplitError
 import ca.tremblay95.billsplit.common.Result
 import ca.tremblay95.billsplit.data.data_source.OperandDao
 import ca.tremblay95.billsplit.data.data_source.OperationDao
@@ -35,7 +36,7 @@ class OfflineSplitRepository(
                 })
             }
             .catch { e ->
-                emit(Result.Error("Database error: ${e.message}", e))
+                emit(Result.Error(BillSplitError.Unknown("Database error: ${e.message}")))
             }
             .collect { result ->
                 emit(result)
@@ -55,7 +56,7 @@ class OfflineSplitRepository(
                 }
             }
             .catch { e ->
-                emit(Result.Error("Database error: ${e.message}", e))
+                emit(Result.Error(BillSplitError.Unknown("Database error: ${e.message}")))
             }
             .collect { result ->
                 emit(result)
@@ -69,14 +70,14 @@ class OfflineSplitRepository(
                 Result.Success(Unit)
             }
             else {
-                Result.Error("Insert failed")
+                Result.Error(BillSplitError.Unknown("Insert failed"))
             }
         }
         catch (e : SQLiteConstraintException) {
-            Result.Error("Split already exists", e)
+            Result.Error(BillSplitError.DuplicateName)
         }
         catch (e : Exception) {
-            Result.Error("Database insertion error: ${e.message}", e)
+            Result.Error(BillSplitError.Unknown("Database error: ${e.message}"))
         }
     }
 
@@ -89,8 +90,9 @@ class OfflineSplitRepository(
             else {
                 Result.NotFound
             }
-        } catch (e : Exception) {
-            Result.Error("Database delete error: ${e.message}", e)
+        }
+        catch (e : Exception) {
+            Result.Error(BillSplitError.Unknown("Database error: ${e.message}"))
         }
     }
 
@@ -103,8 +105,12 @@ class OfflineSplitRepository(
             else {
                 Result.NotFound
             }
-        } catch (e : Exception) {
-            Result.Error("Database update error: ${e.message}", e)
+        }
+        catch (e : SQLiteConstraintException) {
+            Result.Error(BillSplitError.DuplicateName)
+        }
+        catch (e : Exception) {
+            Result.Error(BillSplitError.Unknown("Database error: ${e.message}"))
         }
     }
 

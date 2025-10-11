@@ -2,6 +2,7 @@ package ca.tremblay95.billsplit.presentation.split_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ca.tremblay95.billsplit.R
 import ca.tremblay95.billsplit.common.Result
 import ca.tremblay95.billsplit.domain.model.Split
 import ca.tremblay95.billsplit.domain.use_cases.GetSplitList
@@ -19,7 +20,7 @@ class SplitListViewModel(
                 SplitListState(splitList = result.data)
             }
             is Result.Error -> {
-                SplitListState(error = result.message)
+                SplitListState(errorStringResource = R.string.split_list_retrieval_error)
             }
             is Result.Loading -> {
                 SplitListState(isLoading = true)

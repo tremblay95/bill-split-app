@@ -1,6 +1,8 @@
 package ca.tremblay95.billsplit.presentation.split_list
 
 import app.cash.turbine.test
+import ca.tremblay95.billsplit.R
+import ca.tremblay95.billsplit.common.BillSplitError
 import ca.tremblay95.billsplit.common.Result
 import ca.tremblay95.billsplit.domain.model.Split
 import ca.tremblay95.billsplit.presentation.fakes.FakeGetSplitList
@@ -29,9 +31,8 @@ class SplitListViewModelTests {
     }
 
     @Test
-    fun splitListViewModel_getSplitListReturnsError_uiStateUpdatedCorrectly() = runTest {
-        val errorText = "some error"
-        val getSplitList = FakeGetSplitList(Result.Error(errorText))
+    fun splitListViewModel_getSplitListReturnsUnknownError_uiStateUpdatedCorrectly() = runTest {
+        val getSplitList = FakeGetSplitList(Result.Error(BillSplitError.Unknown("some error")))
         val splitListViewModel = SplitListViewModel(getSplitList)
 
         splitListViewModel.uiState.test {
@@ -39,7 +40,7 @@ class SplitListViewModelTests {
             assertThat(initial).isEqualTo(SplitListState(isLoading = true))
 
             val actual = awaitItem()
-            assertThat(actual).isEqualTo(SplitListState(error = errorText))
+            assertThat(actual.errorStringResource).isEqualTo(R.string.split_list_retrieval_error)
 
             cancelAndConsumeRemainingEvents()
         }

@@ -1,5 +1,6 @@
 package ca.tremblay95.billsplit.domain.fakes
 
+import ca.tremblay95.billsplit.common.BillSplitError
 import ca.tremblay95.billsplit.common.Result
 import ca.tremblay95.billsplit.data.model.OperandEntity
 import ca.tremblay95.billsplit.data.model.OperationEntity
@@ -27,7 +28,7 @@ class FakeSplitRepository : SplitRepository {
 
     override suspend fun insertSplit(split : Split) : Result<Unit> {
         return if (splits.containsKey(split.id)) {
-            Result.Error("Split already exists.")
+            Result.Error(BillSplitError.DuplicateName)
         } else {
             splits[split.id] = (split)
             Result.Success(Unit)
